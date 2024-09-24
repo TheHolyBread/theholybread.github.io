@@ -128,10 +128,12 @@ body {
 #notebase {
 	top: -100%;
 }
-#score, #ratio, #grade {
+$offset: -200px;
+#score, #ratio, #grade, #scoreUnder {
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, calc(-50% - 32px));
+	transform: translate(-50%, calc(-50% + $offset)) rotateX(20deg) translateZ(50px);
+	background: lighten($black, 10%);
 	font-family: 'Rubik Mono One';
 	position: absolute;
 	color: $white;
@@ -140,12 +142,20 @@ body {
 	//text-shadow: 0 0 20px 10px rgba($blue, 0.5);
 }
 #score {
-	transform: translate(-50%, calc(-50% - 128px));
+	transform: translate(-50%, calc(-50% - 96px + $offset)) rotateX(20deg);
 	font-size: calc(8px * 16);
+	background: lighten($black, 10%);
+}
+#scoreUnder {
+	transform: translate(-50%, calc(-50% + (3px * 19) + $offset)) rotateX(-40deg) translateZ(-30px);
+	font-size: calc(8px * 16);
+	color: rgba(0,0,0,0);
+	background: lighten($black, 5%);
 }
 #grade {
-	transform: translateX(calc(-50% - 200px)) translateY(-50%) translateZ(50px) rotateY(50deg) rotateZ(-10deg);
+	transform: translateX(calc(-50% - 200px)) translateY(calc(-50% + $offset + 30px)) rotateX(-40deg);
 	font-size: calc(6px * 16);
+	background: none;
 }
 #popcon {
 	position: absolute;
