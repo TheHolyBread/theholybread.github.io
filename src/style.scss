@@ -128,7 +128,7 @@ body {
 #notebase {
 	top: -100%;
 }
-#score, #ratio {
+#score, #ratio, #grade {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, calc(-50% - 32px));
@@ -142,6 +142,10 @@ body {
 #score {
 	transform: translate(-50%, calc(-50% - 128px));
 	font-size: calc(8px * 16);
+}
+#grade {
+	transform: translateX(calc(-50% - 200px)) translateY(-50%) translateZ(50px) rotateY(50deg) rotateZ(-10deg);
+	font-size: calc(6px * 16);
 }
 #popcon {
 	position: absolute;
