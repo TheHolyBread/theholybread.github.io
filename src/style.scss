@@ -5,6 +5,7 @@ $yellow : #FFD166;
  $green : #06D6A0;
   $blue : #118AB2;
  $white : #FFFDEF;
+ $offset: -300px;
 // color go weeeeeeeeeeeeee
 
 body {
@@ -12,8 +13,8 @@ body {
 }
 .contain {
 	width: 300px;
-  height: 300px;
-  border: none;
+  	height: 300px;
+  	border: none;
 	position: fixed;
 	left: 50%;
 	top: 50%;
@@ -128,34 +129,29 @@ body {
 #notebase {
 	top: -100%;
 }
-$offset: -200px;
-#score, #ratio, #grade, #scoreUnder {
+
+#score, #ratio, #grade, #combo {
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, calc(-50% + $offset)) rotateX(20deg) translateZ(50px);
-	background: lighten($black, 10%);
+	transform: translate(-50%, calc(-50% - 175px)) rotateX(20deg) translateZ(-275px);
 	font-family: 'Rubik Mono One';
 	position: absolute;
 	color: $white;
-	font-size: calc(2px * 16);
+	font-size: calc(4px * 16);
 	text-wrap: nowrap;
 	//text-shadow: 0 0 20px 10px rgba($blue, 0.5);
 }
 #score {
-	transform: translate(-50%, calc(-50% - 96px + $offset)) rotateX(20deg);
-	font-size: calc(8px * 16);
-	background: lighten($black, 10%);
-}
-#scoreUnder {
-	transform: translate(-50%, calc(-50% + (3px * 19) + $offset)) rotateX(-40deg) translateZ(-30px);
-	font-size: calc(8px * 16);
-	color: rgba(0,0,0,0);
-	background: lighten($black, 5%);
+	transform: translate(-50%, calc(-50% - 96px - 225px)) rotateX(20deg) translateZ(-325px);
+	font-size: calc(16px * 16);
 }
 #grade {
-	transform: translateX(calc(-50% - 200px)) translateY(calc(-50% + $offset + 30px)) rotateX(-40deg);
-	font-size: calc(6px * 16);
-	background: none;
+	transform: translateX(calc(-50% - (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(20deg) rotateZ(-20deg);
+	font-size: calc(14px * 16);
+}
+#combo {
+	transform: translateX(calc(-50% + (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px);
+	font-size: calc(14px * 16);
 }
 #popcon {
 	position: absolute;

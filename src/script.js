@@ -12,7 +12,7 @@ const song = {
 	"data" : "resources/balls.json"
 }
 var audio = new Audio(song.song);
-audio.volume = .1;
+audio.volume = 1;
 
 
 let notes = {
