@@ -37,8 +37,9 @@ audio.addEventListener("play", () => {
       for (let i = 0; i < bufferLength; i++) {
         sum += dataArray[i];
       }
-      const volume = sum / bufferLength;
-      console.log(volume);
+      let volume = (sum / bufferLength);
+	  volume = Math.pow((volume * volume) / 1500, 2)/2;
+	  document.getElementById('combo').innerHTML = Math.round(volume);
       document.querySelector('.planecon').style.perspective = 300 - (volume) + "px";
 
       requestAnimationFrame(calculateVolume);
