@@ -165,10 +165,13 @@ body {
   font-size: calc(14px * 16);
 }
 
-#popcon {
+.pop {
+  top: 100%;
   position: absolute;
-  transform: translatez(119px);
-  background: rgba(255, 0, 0, 0.5);
+  font-family: 'Rubik Mono One';
+  font-size: 2rem;
+  color: white;
+  width: 25%;
 }
 
 #cover {

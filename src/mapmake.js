@@ -56,7 +56,7 @@ function main() {
 	  delete keys[e.keyCode];
 	});
 
-    var audio = new Audio('resources/songs/Balls in yo Jaws.mp3');
+    var audio = new Audio('resources/songs/swung.mp3');
     audio.volume = 0.1;
 	audio.play();
 

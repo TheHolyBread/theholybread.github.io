@@ -3,6 +3,7 @@ var score = 0;
 var miss = 0;
 var hit = 0;
 var nnotes = 0;
+var combo = 0;
 
 var time = 0;
 var start = 0;
@@ -15,6 +16,7 @@ var audio = new Audio(song.song);
 audio.volume = 1;
 
 let audioCtx;
+let smoothvol = 0;
 
 audio.addEventListener("play", () => {
   if (!audioCtx) {
@@ -39,8 +41,10 @@ audio.addEventListener("play", () => {
       }
       let volume = (sum / bufferLength);
 	  volume = Math.pow((volume * volume) / 1500, 2)/2;
-	  document.getElementById('combo').innerHTML = Math.round(volume);
-      document.querySelector('.planecon').style.perspective = 300 - (volume) + "px";
+	  smoothvol += (volume - smoothvol) / 2;
+	  //document.getElementById('combo').innerHTML = smoothvol;
+      document.querySelector('.planecon').style.perspective = 300 - (smoothvol) + "px";
+	  document.querySelector('.planecon').style.transform = `rotatez(${(smoothvol / 6) * Math.sin(Date.now() / 100)}deg)`;
 
       requestAnimationFrame(calculateVolume);
     }
@@ -62,7 +66,7 @@ function click(e) {
 		blink1.main();
 		//console.log(Object.keys(notes['one']).length);
 		if (Object.keys(notes['one']).length == 0) {
-			miss++;
+			miss++; combo = 0;
 			delete keys[controls[0]];
 		}
 		//delete keys[65];
@@ -70,7 +74,7 @@ function click(e) {
 	if (controls[1] in keys) {
 		blink2.main();
 		if (Object.keys(notes['two']).length == 0) {
-			miss++;
+			miss++; combo = 0;
 			delete keys[controls[1]];
 		}
 		//delete keys[83];
@@ -78,7 +82,7 @@ function click(e) {
 	if (controls[2] in keys) {
 		blink3.main();
 		if (Object.keys(notes['tre']).length == 0) {
-			miss++;
+			miss++; combo = 0;
 			delete keys[controls[2]];
 		}
 		//delete keys[68];
@@ -86,7 +90,7 @@ function click(e) {
 	if (controls[3] in keys) {
 		blink4.main();
 		if (Object.keys(notes['for']).length == 0) {
-			miss++;
+			miss++; combo = 0;
 			delete keys[controls[3]];
 		}
 		//delete keys[70];
@@ -95,6 +99,7 @@ function click(e) {
 
 function modScore(pts, x) {
 	score += pts;
+	combo++;
 	let popUp = document.createElement("div");
 	popUp.textContent = pts;
 	
@@ -197,7 +202,7 @@ class Note {
 					delete keys[controls[this.x]];
 					delete notes[['one','two','tre','for'][this.x]][this.id];
 					let gains = Math.round(Math.min(Math.max(Math.sin((Math.PI * (this.y - 3.75)) / (this.height / 2)) * 47 + 55, 10), 100));
-					modScore(gains);
+					modScore(gains, this.x);
 					hit++;
 					nnotes++;
 					this.note.classList.add('hit');
@@ -228,7 +233,7 @@ class Note {
 					setTimeout(() => {this.note.remove}, 500);
 				}
 			} else if (this.y > 75 && !this.passed) {
-				miss++;
+				miss++; combo = 0;
 				this.passed = true;
 				nnotes++;
 			} else {
@@ -311,6 +316,7 @@ function main(noteSeq) {
 
 		document.getElementById('score').innerHTML = '0'.repeat(7 - score.toString().length) + score.toString();
 		document.getElementById('ratio').innerHTML = `${hit} / ${miss}`;
+		document.getElementById('combo').innerHTML = combo;
 		let grade = Math.round((score / (nnotes * 100)) * 100);
 		if (grade >= 90) {
 			grade = 'SS';
