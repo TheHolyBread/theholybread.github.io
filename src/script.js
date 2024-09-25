@@ -14,6 +14,39 @@ const song = {
 var audio = new Audio(song.song);
 audio.volume = 1;
 
+let audioCtx;
+
+audio.addEventListener("play", () => {
+  if (!audioCtx) {
+    audioCtx = new window.AudioContext();
+
+    let analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+    let bufferLength = analyser.frequencyBinCount;
+    let dataArray = new Uint8Array(bufferLength);
+
+    let source = audioCtx.createMediaElementSource(audio);
+
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+
+    function calculateVolume() {
+      analyser.getByteFrequencyData(dataArray);
+
+      let sum = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        sum += dataArray[i];
+      }
+      const volume = sum / bufferLength;
+      console.log(volume);
+      document.querySelector('.planecon').style.perspective = 300 - (volume) + "px";
+
+      requestAnimationFrame(calculateVolume);
+    }
+    calculateVolume();
+  }
+});
+
 
 let notes = {
 	"one": {},
