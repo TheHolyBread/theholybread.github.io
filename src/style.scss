@@ -150,7 +150,7 @@ body {
 	font-size: calc(14px * 16);
 }
 #combo {
-	transform: translateX(calc(-50% + (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px);
+	transform: translateX(calc(-50% + (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(-20deg) rotateZ(20deg);
 	font-size: calc(14px * 16);
 }
 #popcon {
