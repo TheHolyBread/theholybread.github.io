@@ -5,7 +5,6 @@ $yellow : #FFD166;
  $green : #06D6A0;
   $blue : #118AB2;
  $white : #FFFDEF;
- $offset: -300px;
 // color go weeeeeeeeeeeeee
 
 body {
@@ -153,10 +152,13 @@ body {
 	transform: translateX(calc(-50% + (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(-20deg) rotateZ(20deg);
 	font-size: calc(14px * 16);
 }
-#popcon {
+.pop {
+	top: 100%;
 	position: absolute;
-	transform: translatez(119px);
-	background: rgba(red, 0.5);
+	font-family: 'Rubik Mono One';
+	font-size: 2rem;
+	color: white;
+	width: 25%;
 }
 
 #cover {
