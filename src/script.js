@@ -93,6 +93,67 @@ function click(e) {
 	}
 }
 
+function modScore(pts, x) {
+	score += pts;
+	let popUp = document.createElement("div");
+	popUp.textContent = pts;
+	
+	popUp.classList.add("pop");
+	popUp.style.left = x * 25 + "%";
+	
+	document.getElementById('planecon').append(popUp);
+	
+	popUp.animate(
+	[
+		{
+			transform: "translatez(119px) translatey(-50px)"
+		},
+		{
+			transform: `rotateY(360deg) translatez(50px) translatey(-119px) translatex(${Math.random() * 100 - 50}px)`
+		}
+	],
+	{
+		duration: 500,
+		fill: "both",
+		easing: 'ease-out'
+	}
+	);
+	popUp.animate(
+	[
+	{
+	opacity: 1
+	},
+	{
+	opacity: 0
+	}
+	],
+	{
+	duration: 500,
+	fill: "both",
+			delay: 100
+	}
+	);
+	popUp.animate(
+	[
+	{
+				translate: '0 0'
+	},
+	{
+				translate: '0 -50px'
+	}
+	],
+	{
+	duration: 500,
+	fill: "both",
+			easing: 'cubic-bezier(.48,1.95,1,1)'
+	}
+	);
+	
+	setTimeout(() => {
+	popUp.remove();
+	}, 500);
+}
+
 class Note {
 	constructor(note, x, offset) {
 		this.note = note.cloneNode();
@@ -136,7 +197,7 @@ class Note {
 					delete keys[controls[this.x]];
 					delete notes[['one','two','tre','for'][this.x]][this.id];
 					let gains = Math.round(Math.min(Math.max(Math.sin((Math.PI * (this.y - 3.75)) / (this.height / 2)) * 47 + 55, 10), 100));
-					score += gains;
+					modScore(gains);
 					hit++;
 					nnotes++;
 					this.note.classList.add('hit');
