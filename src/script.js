@@ -44,7 +44,7 @@ audio.addEventListener("play", () => {
 	  smoothvol += (volume - smoothvol) / 2;
 	  //document.getElementById('combo').innerHTML = smoothvol;
       document.querySelector('.planecon').style.perspective = 300 - (smoothvol) + "px";
-	  document.querySelector('.planecon').style.transform = `rotatez(${(smoothvol / 6) * Math.sin(Date.now() / 100)}deg)`;
+	  document.querySelector('.planecon').style.transform = `rotatez(${(smoothvol / 8) * Math.sin(Date.now() / 100)}deg)`;
 
       requestAnimationFrame(calculateVolume);
     }
