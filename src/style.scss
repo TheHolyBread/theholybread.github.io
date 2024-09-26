@@ -10,6 +10,15 @@ $yellow : #FFD166;
 body {
 	background: $black;
 }
+#page {
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: clip;
+}
 .contain {
 	width: 300px;
   	height: 300px;
@@ -22,22 +31,23 @@ body {
 .planecon {
 	position: absolute;
 	width: 100%;
-  height: 100%;
-  perspective: 300px;
-  transform-style: preserve-3d;
+	height: 100%;
+	perspective: 300px;
+	transform-style: preserve-3d;
 	perspective-origin: 50% 50%;
 	//animation: spin 30s infinite ease-in-out;
 	//animation: bop .7s infinite ease-in-out;
 }
 .plane {
 	display: block;
-  position: absolute;
+  	position: absolute;
 	width: 300px;
 	height: 500px;
-	background: $dark;
+	background: rgba($dark, 0.5);
 	backface-visibility: visible;
 	transform: rotateX(70deg);
 	overflow: clip;
+	backdrop-filter: blur(10px);
 	//animation: spin 3s infinite linear;
 }
 .line {
@@ -176,6 +186,19 @@ body {
 	font-family: 'Rubik Mono One';
 	font-size: 3em;
 	background: rgba($black, 0.75);
+}
+#barcon {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	//transform: translatez(-240px) translatey(-100px);
+}
+.bar {
+	bottom: 0;
+	background: rgba($white, 0.1);
+	position: absolute;
 }
 
 @keyframes spin {

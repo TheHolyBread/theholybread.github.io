@@ -12,11 +12,22 @@ const song = {
 	"song": "resources/songs/The Perfect Phonk.mp3",
 	"data" : "resources/perfectphonk.json"
 }
+var speed = 15;
 var audio = new Audio(song.song);
 audio.volume = 1;
 
 let audioCtx;
 let smoothvol = 0;
+let visualizerRes = 64;
+
+for (let i = 1; i < visualizerRes + 1; i++) {
+	let bar = document.createElement('div');
+	bar.classList.add('bar');
+	bar.id = 'bar' + i;
+	bar.style.left = CSS.percent((100 / visualizerRes) * (i - 1) + (.1 * (i - 1)));
+	bar.style.width = CSS.percent(100 / visualizerRes);
+	document.getElementById('barcon').append(bar);
+}
 
 audio.addEventListener("play", () => {
   if (!audioCtx) {
@@ -36,15 +47,23 @@ audio.addEventListener("play", () => {
       analyser.getByteFrequencyData(dataArray);
 
       let sum = 0;
+	  let bsum = 0;
+	  let dataPerBar = bufferLength / visualizerRes;
       for (let i = 0; i < bufferLength; i++) {
         sum += dataArray[i];
+		bsum += dataArray[i];
+		if ((i % 16) == 0 && i != 0) {
+			console.log(`bar${i/dataPerBar}`);
+			document.getElementById(`bar${i/dataPerBar}`).style.height = (bsum / dataPerBar) * 3 + 'px';
+			bsum = 0;
+		}
       }
       let volume = (sum / bufferLength);
 	  volume = Math.pow((volume * volume) / 1500, 2)/2;
 	  smoothvol += (volume - smoothvol) / 2;
 	  //document.getElementById('combo').innerHTML = smoothvol;
       document.querySelector('.planecon').style.perspective = 300 - (smoothvol) + "px";
-	  document.querySelector('.planecon').style.transform = `rotatez(${(smoothvol / 8) * Math.sin(Date.now() / 100)}deg)`;
+	  document.querySelector('.planecon').style.transform = `rotatez(${(smoothvol / 16) * Math.sin(Date.now() / 100)}deg)`;
 
       requestAnimationFrame(calculateVolume);
     }
@@ -64,7 +83,6 @@ const controls = ['65', '83', '68', '70'];
 function click(e) {
 	if (controls[0] in keys) {
 		blink1.main();
-		//console.log(Object.keys(notes['one']).length);
 		if (Object.keys(notes['one']).length == 0) {
 			miss++; combo = 0;
 			delete keys[controls[0]];
@@ -185,9 +203,8 @@ class Note {
 		document.getElementById('plane').prepend(this.note);
 	}
 	moveNote() {
-		this.y = (Date.now() - this.start) / 15;
+		this.y = (Date.now() - this.start) / (15 - (speed - 15));
 		this.n++;
-		//console.log(this.y, this.n);
 		this.note.style.top = this.y + "%";
 	}
 	main() {
@@ -237,14 +254,13 @@ class Note {
 				this.passed = true;
 				nnotes++;
 			} else {
-				//console.log(this.x, this.id, ['one','two','tre','for'][this.x]);
 				delete notes[['one','two','tre','for'][this.x]][this.id];
 			}
 			if (this.y >= 100) {
 				window.clearInterval(loop);
 				this.note.remove();
 			}
-		}, 1000 / 60);
+		}, 1000 / 120);
 		}, 200);
 	}
 }
@@ -273,17 +289,13 @@ var c4 = new Blink(document.getElementById('c4'));
 
 function noteLoop(current, seq){
 	let key = Object.keys(seq);
-	console.log(key);
 	for (let i = 0; i < key.length; i++) {
 		let step = seq[key[i]];
-		console.log(step);
 		for (let k = 0; k < step.length; k++) {
-			console.log(key[i] - (67.5 * (1000 / 60)) - 200 + 1500);
 			let offset = 0;
-			let timef = key[i] - (67.5 * (1000 / 60)) - 200 + 1500;
+			let timef = key[i] - (67.5 * ((1000 / 60) * (15 / speed))) - 200 + 1500;
 			setTimeout(() => {
 				offset = Date.now() - (current + timef);
-				console.log(offset);
 				const newnote = new Note(document.getElementById('notebase'), step[k] - 1);
 				newnote.main();
 			}, timef);
@@ -310,7 +322,6 @@ function main(noteSeq) {
 	setTimeout(() => {
 		audio.play();
 	}, 1500);
-	//setTimeout(() => {console.log(time)}, 1000);
 	start = Date.now();
 	setInterval(() => {
 
@@ -333,8 +344,6 @@ function main(noteSeq) {
 		}
 		document.getElementById('grade').innerHTML = grade;
 		time = Date.now() - start;
-		//console.clear();
-		//console.log(keys, notes);
 	}, 1);
 }
 
