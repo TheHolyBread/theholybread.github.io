@@ -1,7 +1,7 @@
 var keys = {}
 var sqnce = {};
 var time = 0;
-const controls = [65, 83, 68, 70];
+const controls = [65,83,68,70,72,74,75,76];
 var start = 0;
 function click() {
     let all = Object.keys(sqnce);
@@ -22,6 +22,22 @@ function click() {
         if (controls[3] in keys) {
             temp.push(4);
             delete keys[controls[3]];
+        }
+        if (controls[4] in keys) {
+            temp.push(5);
+            delete keys[controls[4]];
+        }
+        if (controls[5] in keys) {
+            temp.push(6);
+            delete keys[controls[5]];
+        }
+        if (controls[6] in keys) {
+            temp.push(7);
+            delete keys[controls[6]];
+        }
+        if (controls[7] in keys) {
+            temp.push(8);
+            delete keys[controls[7]];
         }
         //console.log("difference from last inp", Math.abs(all[all.length - 1] - time) < 100);
         if (Math.abs(all[all.length - 1] - time) < 100) {

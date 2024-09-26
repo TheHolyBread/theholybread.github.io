@@ -67,6 +67,16 @@ body {
 	transform: translatez(119px);
 	// transformer am i right guys? #optimusGOAT
 }
+.sblink {
+	position: absolute;
+	background: linear-gradient(to top, rgba(255,255,255,0), #fcf9e6, rgba(255,255,255,0));
+	width: 12.5%;
+	height: 100%;
+	top: 50%;
+	opacity: 0;
+	transform: translatez(119px) translateX(50%);
+	// transformer am i right guys? #optimusGOAT
+}
 #c1, #c2, #c3, #c4 {
 		transform: translatez(-240px) translatey(-100px);
 }
@@ -94,10 +104,16 @@ body {
 .note {
 	position: absolute;
 	display: flex;
-	width: 25%;
 	height: 15%;
 	//background: $white;
 	animation: note .2s cubic-bezier(.72,0,.62,1.69) both;
+}
+.note:not(.mini) {
+	width: 25%;
+}
+.mini {
+	width: 12.5%;
+	translate: 50% 0;
 }
 .one:not(.hit) {
 	background: linear-gradient(to top, lighten($red, 25%) 0%, lighten($red, 30%) 40%, white 40%, white 45%, lighten($red, 30%) 45%, lighten($red, 25%) 100%);

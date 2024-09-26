@@ -9,8 +9,8 @@ var time = 0;
 var start = 0;
 
 const song = {
-	"song": "resources/songs/The Perfect Phonk.mp3",
-	"data" : "resources/perfectphonk.json"
+	"song": "resources/songs/swung.mp3",
+	"data" : "resources/swung.json"
 }
 var speed = 15;
 var audio = new Audio(song.song);
@@ -53,7 +53,6 @@ audio.addEventListener("play", () => {
         sum += dataArray[i];
 		bsum += dataArray[i];
 		if ((i % 16) == 0 && i != 0) {
-			console.log(`bar${i/dataPerBar}`);
 			document.getElementById(`bar${i/dataPerBar}`).style.height = (bsum / dataPerBar) * 3 + 'px';
 			bsum = 0;
 		}
@@ -76,10 +75,15 @@ let notes = {
 	"one": {},
 	"two": {},
 	"tre": {},
-	"for": {}
+	"for": {},
+	"fiv": {},
+	"six": {},
+	"sev": {},
+	"ate": {}
 };
 let keys = {};
-const controls = ['65', '83', '68', '70'];
+const controls = ['65', '83', '68', '70','72', '74', '75', '76'];
+const noteMap = ['one','two','tre','for','fiv','six','sev','ate'];
 function click(e) {
 	if (controls[0] in keys) {
 		blink1.main();
@@ -110,6 +114,38 @@ function click(e) {
 		if (Object.keys(notes['for']).length == 0) {
 			miss++; combo = 0;
 			delete keys[controls[3]];
+		}
+		//delete keys[70];
+	}
+	if (controls[4] in keys) {
+		s1.main();
+		if (Object.keys(notes['fiv']).length == 0) {
+			miss++; combo = 0;
+			delete keys[controls[4]];
+		}
+		//delete keys[65];
+	}
+	if (controls[5] in keys) {
+		s2.main();
+		if (Object.keys(notes['six']).length == 0) {
+			miss++; combo = 0;
+			delete keys[controls[5]];
+		}
+		//delete keys[83];
+	}
+	if (controls[6] in keys) {
+		s3.main();
+		if (Object.keys(notes['sev']).length == 0) {
+			miss++; combo = 0;
+			delete keys[controls[6]];
+		}
+		//delete keys[68];
+	}
+	if (controls[7] in keys) {
+		s4.main();
+		if (Object.keys(notes['ate']).length == 0) {
+			miss++; combo = 0;
+			delete keys[controls[7]];
 		}
 		//delete keys[70];
 	}
@@ -178,12 +214,12 @@ function modScore(pts, x) {
 }
 
 class Note {
-	constructor(note, x, offset) {
+	constructor(note, x, offset, mini = false) {
 		this.note = note.cloneNode();
 		
 		this.x = x;
 		this.offset = offset;
-		
+
 		this.y = 0 - this.offset;
 		this.n = 0 - this.offset;
 		this.note.style.left = (this.x * 25) + "%";
@@ -193,12 +229,21 @@ class Note {
 		n++;
 		this.height = 15;
 		this.note.classList.add(['one','two','tre','for'][this.x]);
+		this.mini = mini;
+		if (this.mini) {
+			this.note.classList.add('mini');
+			this.x += 4;
+		}
 		this.start = Date.now() + 200;
 
 		this.passed = false;
 		
 		setTimeout(() => {
-			([c1, c2, c3, c4][this.x]).main()
+			if (mini) {
+				([c1, c2, c3, c4][this.x - 4]).main()
+			} else {
+				([c1, c2, c3, c4][this.x]).main()
+			}
 		}, 150);
 		document.getElementById('plane').prepend(this.note);
 	}
@@ -213,13 +258,13 @@ class Note {
 		var loop = setInterval(() => {
 			this.moveNote();
 			if (this.y >= (75 - this.height) && this.y <= 75) {
-				notes[['one','two','tre','for'][this.x]][this.id] = true;
+				notes[noteMap[this.x]][this.id] = true;
 				if (controls[this.x] in keys) {
 					window.clearInterval(loop);
 					delete keys[controls[this.x]];
-					delete notes[['one','two','tre','for'][this.x]][this.id];
+					delete notes[noteMap[this.x]][this.id];
 					let gains = Math.round(Math.min(Math.max(Math.sin((Math.PI * (this.y - 3.75)) / (this.height / 2)) * 47 + 55, 10), 100));
-					modScore(gains, this.x);
+					modScore(gains, this.x - (this.mini * 4));
 					hit++;
 					nnotes++;
 					this.note.classList.add('hit');
@@ -254,7 +299,7 @@ class Note {
 				this.passed = true;
 				nnotes++;
 			} else {
-				delete notes[['one','two','tre','for'][this.x]][this.id];
+				delete notes[noteMap[this.x]][this.id];
 			}
 			if (this.y >= 100) {
 				window.clearInterval(loop);
@@ -282,6 +327,11 @@ var blink2 = new Blink(document.getElementById('b2'));
 var blink3 = new Blink(document.getElementById('b3'));
 var blink4 = new Blink(document.getElementById('b4'));
 
+var s1 = new Blink(document.getElementById('s1'));
+var s2 = new Blink(document.getElementById('s2'));
+var s3 = new Blink(document.getElementById('s3'));
+var s4 = new Blink(document.getElementById('s4'));
+
 var c1 = new Blink(document.getElementById('c1'));
 var c2 = new Blink(document.getElementById('c2'));
 var c3 = new Blink(document.getElementById('c3'));
@@ -296,7 +346,12 @@ function noteLoop(current, seq){
 			let timef = key[i] - (67.5 * ((1000 / 60) * (15 / speed))) - 200 + 1500;
 			setTimeout(() => {
 				offset = Date.now() - (current + timef);
-				const newnote = new Note(document.getElementById('notebase'), step[k] - 1);
+				let newnote;
+				if (step[k] > 4) {
+					newnote = new Note(document.getElementById('notebase'), step[k] - 1 - 4, offset, true);
+				} else {
+					newnote = new Note(document.getElementById('notebase'), step[k] - 1, offset);
+				}
 				newnote.main();
 			}, timef);
 		}
