@@ -203,6 +203,34 @@ body {
 	font-size: 3em;
 	background: rgba($black, 0.75);
 }
+#mobilecon {
+	left: 0;
+	top: 0;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+#mobilecon div {
+	outline: 2px solid rgba($white, 0.25);
+	width: 25%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: none;
+	border: none;
+	transition: background .5s;
+	touch-action: manipulation;
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-khtml-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
+#mobilecon div:active {
+	background: rgba($white, .25);
+}
 #barcon {
 	width: 100%;
 	height: 100%;

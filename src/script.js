@@ -84,7 +84,7 @@ let notes = {
 let keys = {};
 const controls = ['65', '83', '68', '70','72', '74', '75', '76'];
 const noteMap = ['one','two','tre','for','fiv','six','sev','ate'];
-function click(e) {
+function click() {
 	if (controls[0] in keys) {
 		blink1.main();
 		if (Object.keys(notes['one']).length == 0) {
@@ -150,6 +150,15 @@ function click(e) {
 		//delete keys[70];
 	}
 }
+function doKey(keycode) {
+	keys[keycode] = true;
+	click();
+	window.focus();
+}
+document.getElementById('mob1').addEventListener('touchstart', () => {doKey(controls[0])});
+document.getElementById('mob2').addEventListener('touchstart', () => {doKey(controls[1])});
+document.getElementById('mob3').addEventListener('touchstart', () => {doKey(controls[2])});
+document.getElementById('mob4').addEventListener('touchstart', () => {doKey(controls[3])});
 
 function modScore(pts, x) {
 	score += pts;
