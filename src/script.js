@@ -9,8 +9,8 @@ var time = 0;
 var start = 0;
 
 const song = {
-	"song": "resources/songs/swung.mp3",
-	"data" : "resources/swung.json"
+	"song": "resources/songs/Balls in yo Jaws.mp3",
+	"data" : "resources/balls.json"
 }
 var speed = 15;
 var audio = new Audio(song.song);
