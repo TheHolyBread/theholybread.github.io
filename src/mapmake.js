@@ -4,13 +4,23 @@ var time = 0;
 const controls = [65,83,68,70,72,74,75,76];
 var start = 0;
 const aud = document.getElementById('audio');
+aud.volume = .1;
 var leng = Math.round(aud.duration * 1000);
 
-fetch('resources/swung.json')
-        .then(res => res.json())
-        .then(out => main(out))
-        .catch(err => console.log(err));
-
+function sequence() {
+        fetch('resources/swung.json')
+            .then(res => res.json())
+            .then(out => sqnce = out)
+            .then(_ => main())
+            .catch(err => console.log(err));
+}
+sequence();
+aud.onplay = () => {
+    document.getElementById('field').focus();
+};
+aud.onpause = () => {
+    document.getElementById('field').focus();
+};
 function click() {
     let all = Object.keys(sqnce);
     if (Object.keys(keys).length) {
@@ -50,10 +60,10 @@ function click() {
         //console.log("difference from last inp", Math.abs(all[all.length - 1] - time) < 100);
         if (Math.abs(all[all.length - 1] - time) < 100) {
             let rtime = all[all.length - 1];
-            sqnce[rtime] = sqnce[rtime].concat(temp);
+            sqnce[rtime] = [...new Set(sqnce[rtime].concat(temp))];
         } else {
             if (sqnce[time]) {
-                sqnce[time] = sqnce[time].concat(temp);
+                sqnce[time] = [...new Set(sqnce[time].concat(temp))];
             } else {
                 sqnce[time] = temp;
             }
@@ -63,6 +73,7 @@ function click() {
     }
 }
 function refresh(seq) {
+    document.getElementById('scroll').innerHTML = '';
     let key = Object.keys(seq);
 	for (let i = 0; i < key.length; i++) {
 		let step = seq[key[i]];
@@ -76,11 +87,10 @@ function refresh(seq) {
         }
     }
 }
-function main(seq) {
+function main() {
     start = Date.now();
-
+    refresh(sqnce);
     window.addEventListener("keydown", function (e) {
-        
         if (controls.includes(e.keyCode)) {
             if (e.repeat) {
                 delete keys[e.keycode];
@@ -89,6 +99,7 @@ function main(seq) {
                 keys[e.keyCode] = true;
                 click();
             }
+            refresh(sqnce);
         }
 	});
 	window.addEventListener("keyup", function (e) {
