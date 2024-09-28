@@ -244,7 +244,29 @@ body {
 	background: rgba($white, 0.1);
 	position: absolute;
 }
-
+#field {
+	background: $dark;
+	display: flex;
+	position: absolute;
+	left: 0;
+	width: 100vw;
+	height: 50vh;
+	overflow: hidden;
+}
+#scroll {
+	display: flex;
+	position: absolute;
+	left: 0;
+	width: 100vw;
+	height: 50vh;
+}
+.dot {
+	position: absolute;
+	height: 19%;
+	translate: 0 -50%;
+	width: 10px;
+	background: $red;
+}
 @keyframes spin {
 	from {
 		transform: rotateX(-180deg) rotateY(-180deg) rotateZ(-180deg);

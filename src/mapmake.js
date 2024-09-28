@@ -3,6 +3,14 @@ var sqnce = {};
 var time = 0;
 const controls = [65,83,68,70,72,74,75,76];
 var start = 0;
+const aud = document.getElementById('audio');
+var leng = Math.round(aud.duration * 1000);
+
+fetch('resources/swung.json')
+        .then(res => res.json())
+        .then(out => main(out))
+        .catch(err => console.log(err));
+
 function click() {
     let all = Object.keys(sqnce);
     if (Object.keys(keys).length) {
@@ -54,10 +62,22 @@ function click() {
         document.getElementById('sqnce').innerText = JSON.stringify(sqnce, 1);
     }
 }
-function main() {
+function main(seq) {
     start = Date.now();
+
+    let key = Object.keys(seq);
+	for (let i = 0; i < key.length; i++) {
+		let step = seq[key[i]];
+		for (let k = 0; k < step.length; k++) {
+            let dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.style.left = key[i] + 'px';
+            dot.style.top = CSS.percent(step[k] * 20);
+            document.getElementById('scroll').append(dot);
+        }
+    }
     window.addEventListener("keydown", function (e) {
-        time = Date.now() - start;
+        
         if (controls.includes(e.keyCode)) {
             if (e.repeat) {
                 delete keys[e.keycode];
@@ -74,18 +94,12 @@ function main() {
 
     var audio = new Audio('resources/songs/swung.mp3');
     audio.volume = 0.1;
-	audio.play();
+	//audio.play();
 
     setInterval(() => {
-        time = Date.now() - start;
-        document.getElementById('timer').innerText = time;
+        time = Math.round(aud.currentTime * 1000);
+        leng = Math.round(aud.duration * 1000);
+        document.getElementById('timer').innerText = time + ' / ' + leng;
+        document.getElementById('scroll').style.left = (- time) + 'px';
     }, 1000 / 60);
 }
-
-let clickListener = document.getElementById('cover').addEventListener('click', () => {
-	if (document.getElementById('cover')) {
-        main();
-        document.getElementById('cover').remove();
-    }
-	
-}, {once: true});
