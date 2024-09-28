@@ -62,9 +62,7 @@ function click() {
         document.getElementById('sqnce').innerText = JSON.stringify(sqnce, 1);
     }
 }
-function main(seq) {
-    start = Date.now();
-
+function refresh(seq) {
     let key = Object.keys(seq);
 	for (let i = 0; i < key.length; i++) {
 		let step = seq[key[i]];
@@ -73,9 +71,14 @@ function main(seq) {
             dot.classList.add('dot');
             dot.style.left = key[i] + 'px';
             dot.style.top = CSS.percent(step[k] * 20);
+            dot.style.background = ['#EF476F','#FFD166','#06D6A0','#118AB2'][step[k] - 1];
             document.getElementById('scroll').append(dot);
         }
     }
+}
+function main(seq) {
+    start = Date.now();
+
     window.addEventListener("keydown", function (e) {
         
         if (controls.includes(e.keyCode)) {

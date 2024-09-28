@@ -9,8 +9,8 @@ var time = 0;
 var start = 0;
 
 const song = {
-	"song": "resources/songs/Balls in yo Jaws.mp3",
-	"data" : "resources/balls.json"
+	"song": "resources/songs/The Perfect Phonk.mp3",
+	"data" : "resources/perfectphonk.json"
 }
 var speed = 15;
 var audio = new Audio(song.song);
