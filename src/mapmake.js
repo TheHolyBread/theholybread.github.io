@@ -15,12 +15,12 @@ function sequence() {
             .catch(err => console.log(err));
 }
 sequence();
-aud.onplay = () => {
+/*aud.onplay = () => {
     document.getElementById('field').focus();
 };
 aud.onpause = () => {
     document.getElementById('field').focus();
-};
+};*/
 function click() {
     let all = Object.keys(sqnce);
     if (Object.keys(keys).length) {
@@ -69,8 +69,10 @@ function click() {
             }
         }
         //console.log(sqnce);
-        document.getElementById('sqnce').innerText = JSON.stringify(sqnce, 1);
     }
+}
+function del(dot) {
+    delete seq[dot.time][dot.x];
 }
 function refresh(seq) {
     document.getElementById('scroll').innerHTML = '';
@@ -83,14 +85,32 @@ function refresh(seq) {
             dot.style.left = key[i] + 'px';
             dot.style.top = CSS.percent(step[k] * 20);
             dot.style.background = ['#EF476F','#FFD166','#06D6A0','#118AB2'][step[k] - 1];
+            dot.setAttribute('time', key[i]);
+            dot.setAttribute('x', step[k]);
+            dot.addEventListener('click', (e) => {
+                sqnce[e.target.getAttribute('time')].splice(sqnce[e.target.getAttribute('time')].indexOf(e.target.getAttribute('x') - 0),1);
+                refresh(sqnce);
+            });
             document.getElementById('scroll').append(dot);
         }
     }
+    document.getElementById('sqnce').innerText = JSON.stringify(sqnce, 1);
 }
 function main() {
     start = Date.now();
     refresh(sqnce);
     window.addEventListener("keydown", function (e) {
+        if (e.keyCode == 32) {
+            console.log('toggle');
+            if (aud.paused) {
+                aud.play();
+            } else {
+                aud.pause();
+            }
+        }
+        if (e.keyCode == 39 || e.keyCode == 37 || e.keyCode == 16) {
+            keys[e.keyCode] = true;
+        }
         if (controls.includes(e.keyCode)) {
             if (e.repeat) {
                 delete keys[e.keycode];
@@ -111,9 +131,16 @@ function main() {
 	//audio.play();
 
     setInterval(() => {
+        if (Object.keys(keys).includes('37')) {
+            (Object.keys(keys).includes('16')) ? aud.currentTime -= 0.001 : aud.currentTime -= 0.01;
+        }
+        if (Object.keys(keys).includes('39')) {
+            (Object.keys(keys).includes('16')) ? aud.currentTime += 0.001 : aud.currentTime += 0.01;
+        }
         time = Math.round(aud.currentTime * 1000);
         leng = Math.round(aud.duration * 1000);
         document.getElementById('timer').innerText = time + ' / ' + leng;
         document.getElementById('scroll').style.left = (- time) + 'px';
+        if (document.activeElement instanceof HTMLElement) {    document.activeElement.blur()   };
     }, 1000 / 60);
 }
