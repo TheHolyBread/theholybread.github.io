@@ -1,33 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Map Maker</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One"><link rel="stylesheet" href="./style.css">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Map Maker</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Rubik Mono One"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <h1>Your sequence:</h1>
+    <div id="timer"></div>
+    <audio controls id="audio">
+      <source src="resources/songs/swung.mp3" type="audio/mpeg" />
+    </audio>
+	<button onclick="document.getElementById('importBtn').click()">Import</button>
+	<button onclick="exportMap()">Export</button>
+    <input id="importBtn" type="file" style="display: none;" />
+    <div id="field">
+      <div id="scroll"></div>
+      <div class="lline" style="top: 10%"></div>
+      <div class="lline" style="top: 50%"></div>
+      <div
+        style="
+          width: 100%;
+          position: absolute;
+          top: 0;
+          height: 10%;
+          background: rgba(0, 0, 0, 0.25);
+        "
+      ></div>
+      <div
+        style="
+          width: 100%;
+          position: absolute;
+          bottom: 0;
+          height: 10%;
+          background: rgba(0, 0, 0, 0.25);
+        "
+      ></div>
+      <div
+        style="
+          width: 10px;
+          position: absolute;
+          height: 100%;
+          left: 50%;
+          background: rgba(255, 255, 255, 0.5);
+          pointer-events: none;
+        "
+      ></div>
+    </div>
+    <div id="sqnce"></div>
 
-</head>
-<body>
-	<h1>Your sequence:</h1>
-	<div id='timer'></div>
-	<audio controls id='audio'><source src='resources/songs/swung.mp3' type='audio/mpeg'></audio>
-	<div id='field'>
-		<div id='scroll'>
-
-		</div>
-		<div class='lline' style="top: 10%"></div>
-		<div class='lline' style="top: 50%"></div>
-		<div style="width: 100%; position: absolute; top: 0; height: 10%; background: rgba(0,0,0, 0.25);"></div>
-		<div style="width: 100%; position: absolute; bottom: 0; height: 10%; background: rgba(0,0,0, 0.25);"></div>
-		<div style="width: 10px; position: absolute; height: 100%; left: 50%; background: rgba(255,255,255, 0.5); pointer-events: none;"></div>
-	</div>
-	<div id='sqnce'></div>
-
-	<script  src="./mapmake.js"></script>
-
-</body>
+    <script src="./mapmake.js"></script>
+  </body>
 </html>
 <style>
-	* {
-		color: white;
-	}
+  * {
+    color: white;
+  }
 </style>

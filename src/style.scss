@@ -1,340 +1,414 @@
- $black : #131313;
-  $dark : #262626;
-   $red : #EF476F;
-$yellow : #FFD166;
- $green : #06D6A0;
-  $blue : #118AB2;
- $white : #FFFDEF;
+$black: #131313;
+$dark: #262626;
+$red: #ef476f;
+$yellow: #ffd166;
+$green: #06d6a0;
+$blue: #118ab2;
+$white: #fffdef;
 // color go weeeeeeeeeeeeee
 ::-webkit-scrollbar {
-	display: none;
+  display: none;
 }
 body {
-	background: $black;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
+  background: $black;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 #page {
-	left: 0;
-	right: 0;
-	bottom: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: clip;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: clip;
 }
 .contain {
-	width: 300px;
-  	height: 300px;
-  	border: none;
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -75%);
+  width: 300px;
+  height: 300px;
+  border: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -75%);
 }
 .planecon {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	perspective: 300px;
-	transform-style: preserve-3d;
-	perspective-origin: 50% 50%;
-	//animation: spin 30s infinite ease-in-out;
-	//animation: bop .7s infinite ease-in-out;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  perspective: 300px;
+  transform-style: preserve-3d;
+  perspective-origin: 50% 50%;
+  //animation: spin 30s infinite ease-in-out;
+  //animation: bop .7s infinite ease-in-out;
 }
 .plane {
-	display: block;
-  	position: absolute;
-	width: 300px;
-	height: 500px;
-	background: rgba($dark, 0.5);
-	backface-visibility: visible;
-	transform: rotateX(70deg);
-	overflow: clip;
-	backdrop-filter: blur(10px);
-	//animation: spin 3s infinite linear;
+  display: block;
+  position: absolute;
+  width: 300px;
+  height: 500px;
+  background: rgba($dark, 0.5);
+  backface-visibility: visible;
+  transform: rotateX(70deg);
+  overflow: clip;
+  backdrop-filter: blur(10px);
+  //animation: spin 3s infinite linear;
 }
 .line {
-	position: absolute;
-	width: 900px;
-	height: 2px;
-	background: $white;
-	top: 75%;
+  position: absolute;
+  width: 900px;
+  height: 2px;
+  background: $white;
+  top: 75%;
 }
 .blink {
-	position: absolute;
-	background: linear-gradient(to top, rgba(255,255,255,0), #fcf9e6, rgba(255,255,255,0));
-	width: 25%;
-	height: 100%;
-	top: 50%;
-	opacity: 0;
-	transform: translatez(119px);
-	// transformer am i right guys? #optimusGOAT
+  position: absolute;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0),
+    #fcf9e6,
+    rgba(255, 255, 255, 0)
+  );
+  width: 25%;
+  height: 100%;
+  top: 50%;
+  opacity: 0;
+  transform: translatez(119px);
+  // transformer am i right guys? #optimusGOAT
 }
 .sblink {
-	position: absolute;
-	background: linear-gradient(to top, rgba(255,255,255,0), #fcf9e6, rgba(255,255,255,0));
-	width: 12.5%;
-	height: 100%;
-	top: 50%;
-	opacity: 0;
-	transform: translatez(119px) translateX(50%);
-	// transformer am i right guys? #optimusGOAT
+  position: absolute;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0),
+    #fcf9e6,
+    rgba(255, 255, 255, 0)
+  );
+  width: 12.5%;
+  height: 100%;
+  top: 50%;
+  opacity: 0;
+  transform: translatez(119px) translateX(50%);
+  // transformer am i right guys? #optimusGOAT
 }
-#c1, #c2, #c3, #c4 {
-		transform: translatez(-240px) translatey(-100px);
+#c1,
+#c2,
+#c3,
+#c4 {
+  transform: translatez(-240px) translatey(-100px);
 }
 #c1 {
-	background: linear-gradient(to top, rgba(255,255,255,0), $red, rgba(255,255,255,0));
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0),
+    $red,
+    rgba(255, 255, 255, 0)
+  );
 }
 #c2 {
-	background: linear-gradient(to top, rgba(255,255,255,0), $yellow, rgba(255,255,255,0));
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0),
+    $yellow,
+    rgba(255, 255, 255, 0)
+  );
 }
 #c3 {
-	background: linear-gradient(to top, rgba(255,255,255,0), $green, rgba(255,255,255,0));
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0),
+    $green,
+    rgba(255, 255, 255, 0)
+  );
 }
 #c4 {
-	background: linear-gradient(to top, rgba(255,255,255,0), $blue, rgba(255,255,255,0));
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0),
+    $blue,
+    rgba(255, 255, 255, 0)
+  );
 }
 .ml {
-	left: 25%;
+  left: 25%;
 }
 .mr {
-	left: 50%;
+  left: 50%;
 }
 .r {
-	left: 75%;
+  left: 75%;
 }
 .note {
-	position: absolute;
-	display: flex;
-	height: 15%;
-	//background: $white;
-	animation: note .2s cubic-bezier(.72,0,.62,1.69) both;
+  position: absolute;
+  display: flex;
+  height: 15%;
+  //background: $white;
+  animation: note 0.2s cubic-bezier(0.72, 0, 0.62, 1.69) both;
 }
 .note:not(.mini) {
-	width: 25%;
+  width: 25%;
 }
 .mini {
-	width: 12.5%;
-	translate: 50% 0;
+  width: 12.5%;
+  translate: 50% 0;
 }
 .one:not(.hit) {
-	background: linear-gradient(to top, lighten($red, 25%) 0%, lighten($red, 30%) 40%, white 40%, white 45%, lighten($red, 30%) 45%, lighten($red, 25%) 100%);
-	box-shadow: 0 0 20px rgba($red, 0.5);
+  background: linear-gradient(
+    to top,
+    lighten($red, 25%) 0%,
+    lighten($red, 30%) 40%,
+    white 40%,
+    white 45%,
+    lighten($red, 30%) 45%,
+    lighten($red, 25%) 100%
+  );
+  box-shadow: 0 0 20px rgba($red, 0.5);
 }
 .one.hit:not(.perf) {
-	background: lighten($red, 25%);
-	box-shadow: 0 0 20px rgba($red, 0.5);
+  background: lighten($red, 25%);
+  box-shadow: 0 0 20px rgba($red, 0.5);
 }
 .two:not(.hit) {
-	background: linear-gradient(to top, lighten($yellow, 15%) 0%, lighten($yellow, 20%) 40%, white 40%, white 45%, lighten($yellow, 20%) 45%, lighten($yellow, 15%) 100%);
-	box-shadow: 0 0 20px rgba($yellow, 0.5);
+  background: linear-gradient(
+    to top,
+    lighten($yellow, 15%) 0%,
+    lighten($yellow, 20%) 40%,
+    white 40%,
+    white 45%,
+    lighten($yellow, 20%) 45%,
+    lighten($yellow, 15%) 100%
+  );
+  box-shadow: 0 0 20px rgba($yellow, 0.5);
 }
 .two.hit:not(.perf) {
-	background: lighten($yellow, 15%);
-	box-shadow: 0 0 20px rgba($yellow, 0.5);
+  background: lighten($yellow, 15%);
+  box-shadow: 0 0 20px rgba($yellow, 0.5);
 }
 .tre:not(.hit) {
-	background: linear-gradient(to top, lighten($green, 40%) 0%, lighten($green, 45%) 40%, white 40%, white 45%, lighten($green, 45%) 45%, lighten($green, 40%) 100%);
-	box-shadow: 0 0 20px rgba($green, 0.5);
+  background: linear-gradient(
+    to top,
+    lighten($green, 40%) 0%,
+    lighten($green, 45%) 40%,
+    white 40%,
+    white 45%,
+    lighten($green, 45%) 45%,
+    lighten($green, 40%) 100%
+  );
+  box-shadow: 0 0 20px rgba($green, 0.5);
 }
 .tre.hit:not(.perf) {
-	background: lighten($green, 40%);
-	box-shadow: 0 0 20px rgba($green, 0.5);
+  background: lighten($green, 40%);
+  box-shadow: 0 0 20px rgba($green, 0.5);
 }
 .for:not(.hit) {
-	background: linear-gradient(to top, lighten($blue, 40%) 0%, lighten($blue, 45%) 40%, white 40%, white 45%, lighten($blue, 45%) 45%, lighten($blue, 40%) 100%);
-	box-shadow: 0 0 20px rgba($blue, 0.5);
+  background: linear-gradient(
+    to top,
+    lighten($blue, 40%) 0%,
+    lighten($blue, 45%) 40%,
+    white 40%,
+    white 45%,
+    lighten($blue, 45%) 45%,
+    lighten($blue, 40%) 100%
+  );
+  box-shadow: 0 0 20px rgba($blue, 0.5);
 }
 .for.hit:not(.perf) {
-	background: lighten($blue, 40%);
-	box-shadow: 0 0 20px rgba($blue, 0.5);
+  background: lighten($blue, 40%);
+  box-shadow: 0 0 20px rgba($blue, 0.5);
 }
 .perf {
-	background: white;
-	box-shadow: 0 0 20px rgba($white, 1);
+  background: white;
+  box-shadow: 0 0 20px rgba($white, 1);
 }
 #notebase {
-	top: -100%;
+  top: -100%;
 }
 
-#score, #ratio, #grade, #combo {
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, calc(-50% - 175px)) rotateX(20deg) translateZ(-275px);
-	font-family: 'Rubik Mono One';
-	position: absolute;
-	color: $white;
-	font-size: calc(4px * 16);
-	text-wrap: nowrap;
-	//text-shadow: 0 0 20px 10px rgba($blue, 0.5);
+#score,
+#ratio,
+#grade,
+#combo {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 175px)) rotateX(20deg)
+    translateZ(-275px);
+  font-family: "Rubik Mono One";
+  position: absolute;
+  color: $white;
+  font-size: calc(4px * 16);
+  text-wrap: nowrap;
+  //text-shadow: 0 0 20px 10px rgba($blue, 0.5);
 }
 #score {
-	transform: translate(-50%, calc(-50% - 96px - 225px)) rotateX(20deg) translateZ(-325px);
-	font-size: calc(16px * 16);
+  transform: translate(-50%, calc(-50% - 96px - 225px)) rotateX(20deg)
+    translateZ(-325px);
+  font-size: calc(16px * 16);
 }
 #grade {
-	transform: translateX(calc(-50% - (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(20deg) rotateZ(-20deg);
-	font-size: calc(14px * 16);
+  transform: translateX(calc(-50% - (200px * 3)))
+    translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px)
+    rotateY(20deg) rotateZ(-20deg);
+  font-size: calc(14px * 16);
 }
 #combo {
-	transform: translateX(calc(-50% + (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(-20deg) rotateZ(20deg);
-	font-size: calc(14px * 16);
+  transform: translateX(calc(-50% + (200px * 3)))
+    translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px)
+    rotateY(-20deg) rotateZ(20deg);
+  font-size: calc(14px * 16);
 }
 .pop {
-	top: 100%;
-	position: absolute;
-	font-family: 'Rubik Mono One';
-	font-size: 2rem;
-	color: white;
-	width: 25%;
+  top: 100%;
+  position: absolute;
+  font-family: "Rubik Mono One";
+  font-size: 2rem;
+  color: white;
+  width: 25%;
 }
 
 #cover {
-	left: 0;
-	top: 0;
-	position: fixed;
-	z-index: 100;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	color: $white;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-family: 'Rubik Mono One';
-	font-size: 3em;
-	background: rgba($black, 0.75);
+  left: 0;
+  top: 0;
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Rubik Mono One";
+  font-size: 3em;
+  background: rgba($black, 0.75);
 }
 #mobilecon {
-	left: 0;
-	top: 0;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	display: flex;
+  left: 0;
+  top: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
 }
 #mobilecon div {
-	outline: 2px solid rgba($white, 0.25);
-	width: 25%;
-	height: 100%;
-	left: 0;
-	top: 0;
-	background: none;
-	border: none;
-	transition: background .5s;
-	touch-action: manipulation;
-	-webkit-touch-callout:none;
-	-webkit-user-select:none;
-	-khtml-user-select:none;
-	-moz-user-select:none;
-	-ms-user-select:none;
-	user-select:none;
+  outline: 2px solid rgba($white, 0.25);
+  width: 25%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: none;
+  border: none;
+  transition: background 0.5s;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 #mobilecon div:active {
-	background: rgba($white, .25);
+  background: rgba($white, 0.25);
 }
 #barcon {
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	position: fixed;
-	//transform: translatez(-240px) translatey(-100px);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  //transform: translatez(-240px) translatey(-100px);
 }
 .bar {
-	bottom: 0;
-	background: rgba($white, 0.1);
-	position: absolute;
+  bottom: 0;
+  background: rgba($white, 0.1);
+  position: absolute;
 }
 #field {
-	background: $dark;
-	position: relative;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	width: 100%;
-	height: 50vh;
-	overflow: hidden;
+  background: $dark;
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50vh;
+  overflow: hidden;
 }
 #scroll {
-	display: flex;
-	position: absolute;
-	left: 0;
-	translate: 50%;
-	width: 100vw;
-	height: 50vh;
+  display: flex;
+  position: absolute;
+  left: 0;
+  translate: 50%;
+  width: 100vw;
+  height: 50vh;
 }
 .lline {
-	width: 100%;
-	height: 20%;
-	position: absolute;
-	pointer-events: none;
-	//outline: 1px solid white;
-	background: rgba(white, .1);
+  width: 100%;
+  height: 20%;
+  position: absolute;
+  pointer-events: none;
+  //outline: 1px solid white;
+  background: rgba(white, 0.1);
 }
 .dot {
-	position: absolute;
-	height: 19%;
-	translate: -50% -50%;
-	width: 10px;
-	background: $red;
-	cursor: pointer;
+  position: absolute;
+  height: 19%;
+  translate: -50% -50%;
+  width: 10px;
+  background: $red;
+  cursor: pointer;
 }
 #audio {
-	width: 100%;
-	left: 0;
+  width: 100%;
+  left: 0;
 }
 @keyframes spin {
-	from {
-		transform: rotateX(-180deg) rotateY(-180deg) rotateZ(-180deg);
-	}
-	to {
-		transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
-	}
+  from {
+    transform: rotateX(-180deg) rotateY(-180deg) rotateZ(-180deg);
+  }
+  to {
+    transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
+  }
 }
 @keyframes note {
-	from {
-		opacity: 0;
-		scale: 0;
-	}
-	to {
-		opacity: 1;
-	}
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes flash {
-	from {
-		opacity: 1;
-	}
-	to {
-		opacity: 0.5;
-	}
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
 }
 @keyframes hit {
-	0% {
-		opacity: 1;
-	}
-	100% {
-		top: 0;
-		height: 100%;
-		opacity: 0;
-	}
+  0% {
+    opacity: 1;
+  }
+  100% {
+    top: 0;
+    height: 100%;
+    opacity: 0;
+  }
 }
 @keyframes bop {
-	0% {
-		perspective: 300px;
-	}
-	35% {
-		perspective: 280px;
-	}
-	70% {
-		perspective: 300px;
-	}
-	100% {
-		perspective: 300px;
-	}
+  0% {
+    perspective: 300px;
+  }
+  35% {
+    perspective: 280px;
+  }
+  70% {
+    perspective: 300px;
+  }
+  100% {
+    perspective: 300px;
+  }
 }
