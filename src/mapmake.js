@@ -6,6 +6,8 @@ var start = 0;
 const aud = document.getElementById("audio");
 aud.volume = 0.1;
 var leng = Math.round(aud.duration * 1000);
+var mousedown = false;
+var mousex = 0;
 
 /*function sequence() {
         fetch('resources/swung.json')
@@ -15,6 +17,7 @@ var leng = Math.round(aud.duration * 1000);
             .catch(err => console.log(err));
 }
 sequence();*/
+
 function click() {
   let all = Object.keys(sqnce);
   if (Object.keys(keys).length) {
@@ -106,6 +109,25 @@ document.getElementById('importBtn').onchange = (e) => {
 function main() {
   start = Date.now();
   refresh(sqnce);
+  document.getElementById("field").addEventListener("mousedown", (e) => {
+    mousex = e.clientX;
+    mousedown = true;
+    aud.pause();
+    document.getElementById("field").style.cursor = "grabbing";
+  });
+  window.addEventListener("mouseup", (e) => {
+    mousedown = false;
+    document.getElementById("field").style.cursor = "grab";
+  });
+  window.addEventListener("mousemove", (e) => {
+    if (mousedown) {
+      e.preventDefault();
+      let change = mousex - e.clientX;
+      console.log(mousex, e.clientX, change);
+      aud.currentTime += change / 1000;
+    }
+    mousex = e.clientX;
+  });
   window.addEventListener("keydown", function (e) {
     if (e.keyCode == 32) {
       console.log("toggle");
@@ -148,12 +170,15 @@ function main() {
         ? (aud.currentTime += 0.001)
         : (aud.currentTime += 0.01);
     }
-    time = Math.round(aud.currentTime * 1000);
-    leng = Math.round(aud.duration * 1000);
-    document.getElementById("timer").innerText = time + " / " + leng;
-    document.getElementById("scroll").style.left = -time + "px";
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
   }, 1000 / 60);
+  setInterval(() => {
+    time = Math.round(aud.currentTime * 1000);
+    leng = Math.round(aud.duration * 1000);
+    document.getElementById("timer").innerText = time + " / " + leng;
+    document.getElementById("scroll").style.left = -time + "px";
+  },1);
 }
+main();
