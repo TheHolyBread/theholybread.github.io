@@ -266,7 +266,25 @@ body {
   color: white;
   width: 25%;
 }
-
+#menu {
+  left: 0;
+  top: 0;
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Rubik Mono One";
+  font-size: 3em;
+  background: rgba($black, 0.75);
+}
+#menu h1 {
+  color: white;
+}
 #cover {
   left: 0;
   top: 0;
