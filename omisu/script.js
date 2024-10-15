@@ -1,3 +1,5 @@
+const rd = new FileReader();
+
 var n = 0;
 var score = 0;
 var miss = 0;
@@ -8,9 +10,9 @@ var combo = 0;
 var time = 0;
 var start = 0;
 
-const song = {
-  song: "resources/songs/The Perfect Phonk.mp3",
-  data: "resources/perfectphonk.json",
+var song = {
+  song: "",
+  sqnce: {},
 };
 var speed = 15;
 var audio = new Audio(song.song);
@@ -73,6 +75,18 @@ audio.addEventListener("play", () => {
     calculateVolume();
   }
 });
+
+document.getElementById('importBtn').onchange = function () {
+  const file = this.files[0];
+  rd.addEventListener("loadend", () => {
+    const fileReaded = rd.result;
+    const jsonified = JSON.parse(fileReaded);
+    song.song = jsonified.audio;
+    song.sqnce = jsonified.sqnce;
+    document.getElementById("start").disabled = false;
+  });
+  rd.readAsDataURL(file);
+}
 
 let notes = {
   one: {},
@@ -459,17 +473,10 @@ function main(noteSeq) {
     time = Date.now() - start;
   }, 1);
 }
-
-let clickListener = document.getElementById("cover").addEventListener(
-  "click",
-  () => {
-    if (document.getElementById("cover")) {
-      fetch(song.data)
-        .then((res) => res.json())
-        .then((out) => main(out))
-        .catch((err) => console.log(err));
-    }
-    document.getElementById("cover").remove();
-  },
-  { once: true }
-);
+function start() {
+  // fetch(song.data)
+  //       .then((res) => res.json())
+  //       .then((out) => main(out))
+  //       .catch((err) => console.log(err));
+  main(song.sqnce);
+}

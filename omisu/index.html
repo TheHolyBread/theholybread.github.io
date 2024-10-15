@@ -48,8 +48,9 @@
       <div id="menu">
         <div id="cover"></div>
         <h1>OMISU</h1>
-        <button>Start</button>
-        <button>Import Level</button>
+        <button onclick="start()" disabled>Start</button>
+        <button onclick="document.getElementById('importBtn').click()">Import Level</button>
+        <input id="importBtn" type="file" style="display: none;" accept=".misumap/">
         <button>Tutorial</button>
         <button>Credits</button>
       </div>

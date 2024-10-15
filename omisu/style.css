@@ -48,7 +48,8 @@ body {
   backface-visibility: visible;
   transform: rotateX(70deg);
   overflow: clip;
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
 }
 
 .line {
@@ -189,23 +190,23 @@ body {
   font-family: "Rubik Mono One";
   position: absolute;
   color: #fffdef;
-  font-size: calc(4px * 16);
+  font-size: 64px;
   text-wrap: nowrap;
 }
 
 #score {
   transform: translate(-50%, calc(-50% - 96px - 225px)) rotateX(20deg) translateZ(-325px);
-  font-size: calc(16px * 16);
+  font-size: 256px;
 }
 
 #grade {
-  transform: translateX(calc(-50% - (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(20deg) rotateZ(-20deg);
-  font-size: calc(14px * 16);
+  transform: translateX(calc(-50% - 600px)) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(20deg) rotateZ(-20deg);
+  font-size: 224px;
 }
 
 #combo {
-  transform: translateX(calc(-50% + (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(-20deg) rotateZ(20deg);
-  font-size: calc(14px * 16);
+  transform: translateX(calc(-50% + 600px)) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(-20deg) rotateZ(20deg);
+  font-size: 224px;
 }
 
 .pop {
@@ -217,7 +218,7 @@ body {
   width: 25%;
 }
 
-#cover {
+#menu {
   left: 0;
   top: 0;
   position: fixed;
@@ -227,10 +228,25 @@ body {
   text-align: center;
   color: #fffdef;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: "Rubik Mono One";
   font-size: 3em;
+  background: rgba(19, 19, 19, 0.75);
+}
+
+#menu h1 {
+  color: white;
+}
+
+#cover {
+  left: 0;
+  top: 0;
+  z-index: -1;
+  position: fixed;
+  width: 100%;
+  height: 100%;
   background: rgba(19, 19, 19, 0.75);
 }
 
@@ -255,9 +271,7 @@ body {
   touch-action: manipulation;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -347,7 +361,6 @@ button:hover {
     transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
   }
 }
-
 @keyframes note {
   from {
     opacity: 0;
@@ -357,7 +370,6 @@ button:hover {
     opacity: 1;
   }
 }
-
 @keyframes flash {
   from {
     opacity: 1;
@@ -366,7 +378,6 @@ button:hover {
     opacity: 0.5;
   }
 }
-
 @keyframes hit {
   0% {
     opacity: 1;
@@ -377,7 +388,6 @@ button:hover {
     opacity: 0;
   }
 }
-
 @keyframes bop {
   0% {
     perspective: 300px;
@@ -391,4 +401,4 @@ button:hover {
   100% {
     perspective: 300px;
   }
-}
+}/*# sourceMappingURL=style.css.map */
