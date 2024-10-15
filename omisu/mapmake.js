@@ -1,3 +1,10 @@
+const rd = new FileReader();
+
+var level = {
+  "audio" : "",
+  "sqnce" : {}
+};
+
 var keys = {};
 var sqnce = {};
 var time = 0;
@@ -99,13 +106,29 @@ function refresh(seq) {
     }
   }
   document.getElementById("sqnce").innerText = JSON.stringify(sqnce, 1);
+  level.sqnce = JSON.stringify(sqnce);
 }
 function exportMap() {
+  let blob = JSON.stringify(level);
+  const link = document.createElement("a");
+  let file = new Blob([blob],{type: 'text/plain'});
+  link.href = URL.createObjectURL(file);
+  link.download = "MyLevel" + ".misumap"
+  link.click();
+  URL.revokeObjectURL(link.href);
+  link.remove();
+}
+document.getElementById('importBtn').onchange = function () {
+  const file = this.files[0];
+  rd.addEventListener("loadend", () => {
+    //document.getElementById("sqnce").innerText = rd.result;
+    document.getElementById("audsource").src = rd.result;
+    aud.load();
+    level.audio = rd.result;
+  });
+  rd.readAsDataURL(file);
+}
 
-}
-document.getElementById('importBtn').onchange = (e) => {
-    
-}
 function main() {
   start = Date.now();
   refresh(sqnce);
