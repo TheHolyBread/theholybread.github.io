@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Omisu</title>
+    <link rel="icon" type="image/x-icon" href="resources/logo/favicon.ico">
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Rubik Mono One"
@@ -47,10 +48,10 @@
       </div>
       <div id="menu">
         <div id="cover"></div>
-        <h1>OMISU</h1>
-        <button onclick="start()" disabled>Start</button>
+        <object data="resources/logo/OmisuLogo.svg"></object>
+        <button id="start" onclick="start()" disabled>Start</button>
         <button onclick="document.getElementById('importBtn').click()">Import Level</button>
-        <input id="importBtn" type="file" style="display: none;" accept=".misumap/">
+        <input id="importBtn" type="file" style="display: none;" accept=".misumap">
         <button>Tutorial</button>
         <button>Credits</button>
       </div>

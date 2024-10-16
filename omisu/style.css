@@ -349,8 +349,13 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button:not(:disabled):hover {
   background: #404040;
+}
+
+object {
+  width: 40%;
+  height: 40%;
 }
 
 @keyframes spin {

@@ -387,8 +387,12 @@ button {
   margin-left: 0;
   cursor: pointer;
 }
-button:hover {
+button:not(:disabled):hover {
   background: lighten($dark, 10%);
+}
+object {
+  width: 40%;
+  height: 40%;
 }
 @keyframes spin {
   from {
