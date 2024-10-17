@@ -337,20 +337,33 @@ body {
 }
 
 button {
-  background: #262626;
+  font-family: "Rubik Mono One";
+  color: gray;
+  background: #212121;
+  transform: skew(-10deg);
   border: none;
   outline: none;
-  border-radius: 1000px;
   padding: 15px;
   padding-left: 25px;
   padding-right: 25px;
   margin: 10px;
   margin-left: 0;
+  cursor: no-drop;
+  box-shadow: 0 0 0 0 #06d6a0;
+  transition: transform 0.1s, color 0.1s, background 0.1s, box-shadow 0.1s;
+}
+
+button:not(:disabled) {
+  color: #fffdef;
+  background: #262626;
   cursor: pointer;
 }
 
 button:not(:disabled):hover {
-  background: #404040;
+  color: #262626;
+  background: #E8EBE6;
+  transform: skew(-20deg) translateX(15px);
+  box-shadow: -30px 0 0 0 #06d6a0;
 }
 
 object {

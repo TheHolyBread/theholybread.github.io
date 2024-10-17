@@ -78,14 +78,25 @@ audio.addEventListener("play", () => {
 
 document.getElementById('importBtn').onchange = function () {
   const file = this.files[0];
-  rd.addEventListener("loadend", () => {
-    const fileReaded = rd.result;
-    const jsonified = JSON.parse(fileReaded);
-    song.song = jsonified.audio;
-    song.sqnce = jsonified.sqnce;
-    document.getElementById("start").disabled = false;
+  rd.addEventListener("load", () => {
+    try {
+      const fileReaded = rd.result;
+      const jsonified = JSON.parse(fileReaded);
+      song.song = jsonified.audio;
+      song.sqnce = jsonified.sqnce;
+      document.getElementById("start").disabled = false;
+    } catch(error) {
+      document.getElementById("start").innerText = error;
+    }
   });
-  rd.readAsDataURL(file);
+  /*let objurl = URL.createObjectURL(file);
+  document.getElementById("start").innerText = objurl;
+  let a = document.createElement("a");
+  a.href = objurl;
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(objurl);*/
+  rd.readAsText(file);
 }
 
 let notes = {
@@ -429,7 +440,8 @@ function noteLoop(current, seq) {
     }
   }
 }
-function main(noteSeq) {
+function main() {
+  let noteSeq = song.sqnce;
   window.addEventListener("keydown", function (e) {
     if (e.repeat) {
       delete keys[e.keycode];
@@ -478,5 +490,9 @@ function start() {
   //       .then((res) => res.json())
   //       .then((out) => main(out))
   //       .catch((err) => console.log(err));
-  main(song.sqnce);
+  try {
+    main();
+  } catch(error) {
+    alert(error);
+  }
 }
