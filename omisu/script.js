@@ -81,9 +81,11 @@ document.getElementById('importBtn').onchange = function () {
   rd.addEventListener("load", () => {
     try {
       const fileReaded = rd.result;
-      const jsonified = JSON.parse(fileReaded);
+      var jsonified = JSON.parse(fileReaded);
+      jsonified.sqnce = JSON.parse(jsonified.sqnce);
       song.song = jsonified.audio;
       song.sqnce = jsonified.sqnce;
+      console.log(song);
       document.getElementById("start").disabled = false;
     } catch(error) {
       document.getElementById("start").innerText = error;
@@ -308,7 +310,6 @@ class Note {
     this.note.style.top = this.y + "%";
   }
   main() {
-    let i = 0;
     setTimeout(() => {
       var loop = setInterval(() => {
         this.moveNote();
@@ -485,14 +486,12 @@ function main() {
     time = Date.now() - start;
   }, 1);
 }
-function start() {
+function startGame() {
   // fetch(song.data)
   //       .then((res) => res.json())
   //       .then((out) => main(out))
   //       .catch((err) => console.log(err));
-  try {
-    main();
-  } catch(error) {
-    alert(error);
-  }
+  audio.src = song.song;
+  document.getElementById("menu").style.display = "none";
+  main();
 }
