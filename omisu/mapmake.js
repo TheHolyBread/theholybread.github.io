@@ -7,12 +7,16 @@ var level = {
 
 var keys = {};
 var sqnce = {};
-var time = 0;
+
+
 const controls = [65, 83, 68, 70, 72, 74, 75, 76];
 var start = 0;
 const aud = document.getElementById("audio");
 aud.volume = 0.1;
 var leng = Math.round(aud.duration * 1000);
+function time() {
+  return Math.round(aud.currentTime * 1000);
+}
 var mousedown = false;
 var mousex = 0;
 
@@ -62,14 +66,23 @@ function click() {
       delete keys[controls[7]];
     }
     //console.log("difference from last inp", Math.abs(all[all.length - 1] - time) < 100);
-    if (Math.abs(all[all.length - 1] - time) < 100) {
+    if (Math.abs(all[all.length - 1] - time()) < 50 && audio.paused) {
       let rtime = all[all.length - 1];
+      for (let n in [...new Set(sqnce[rtime].concat(temp))]) {
+        addNew(rtime, n);
+      }
       sqnce[rtime] = [...new Set(sqnce[rtime].concat(temp))];
     } else {
-      if (sqnce[time]) {
-        sqnce[time] = [...new Set(sqnce[time].concat(temp))];
+      if (sqnce[time()]) {
+        for (let n in [...new Set(sqnce[time()].concat(temp))]) {
+          addNew(rtime, n);
+        }
+        sqnce[time()] = [...new Set(sqnce[time()].concat(temp))];
       } else {
-        sqnce[time] = temp;
+        for (let n in [...new Set(sqnce[time()].concat(temp))]) {
+          addNew(time(), n);
+        }
+        sqnce[time()] = [...new Set(sqnce[time()].concat(temp))];
       }
     }
     //console.log(sqnce);
@@ -78,31 +91,34 @@ function click() {
 function del(dot) {
   delete seq[dot.time][dot.x];
 }
+function addNew(tim, x) {
+  let dot = document.createElement("div");
+  dot.classList.add("dot");
+  dot.style.left = key[tim] + "px";
+  dot.style.top = CSS.percent(step[x] * 20);
+  dot.style.background = ["#EF476F", "#FFD166", "#06D6A0", "#118AB2"][
+    step[x] - 1
+  ];
+  dot.setAttribute("time", key[tim]);
+  dot.setAttribute("x", step[x]);
+  dot.addEventListener("click", (e) => {
+    sqnce[e.target.getAttribute("time")].splice(
+      sqnce[e.target.getAttribute("time")].indexOf(
+        e.target.getAttribute("x") - 0
+      ),
+      1
+    );
+    this.remove();
+  });
+  document.getElementById("scroll").append(dot);
+}
 function refresh(seq) {
   document.getElementById("scroll").innerHTML = "";
   let key = Object.keys(seq);
   for (let i = 0; i < key.length; i++) {
     let step = seq[key[i]];
     for (let k = 0; k < step.length; k++) {
-      let dot = document.createElement("div");
-      dot.classList.add("dot");
-      dot.style.left = key[i] + "px";
-      dot.style.top = CSS.percent(step[k] * 20);
-      dot.style.background = ["#EF476F", "#FFD166", "#06D6A0", "#118AB2"][
-        step[k] - 1
-      ];
-      dot.setAttribute("time", key[i]);
-      dot.setAttribute("x", step[k]);
-      dot.addEventListener("click", (e) => {
-        sqnce[e.target.getAttribute("time")].splice(
-          sqnce[e.target.getAttribute("time")].indexOf(
-            e.target.getAttribute("x") - 0
-          ),
-          1
-        );
-        refresh(sqnce);
-      });
-      document.getElementById("scroll").append(dot);
+      
     }
   }
   document.getElementById("sqnce").innerText = JSON.stringify(sqnce, 1);
@@ -124,9 +140,15 @@ document.getElementById('importBtn').onchange = function () {
     //document.getElementById("sqnce").innerText = rd.result;
     document.getElementById("audsource").src = rd.result;
     aud.load();
+    leng = Math.round(aud.duration * 1000);
     level.audio = rd.result;
   });
   rd.readAsDataURL(file);
+}
+
+function update() {
+  document.getElementById("timer").innerText = time() + " / " + leng;
+  document.getElementById("scroll").style.left = -time() + "px";
 }
 
 function main() {
@@ -153,17 +175,16 @@ function main() {
   });
   window.addEventListener("keydown", function (e) {
     if (e.keyCode == 32) {
-      console.log("toggle");
+      if (e.repeat) return;
+      e.preventDefault();
       if (aud.paused) {
         aud.play();
       } else {
         aud.pause();
       }
-    }
-    if (e.keyCode == 39 || e.keyCode == 37 || e.keyCode == 16) {
+    } else if (e.keyCode == 39 || e.keyCode == 37 || e.keyCode == 16) {
       keys[e.keyCode] = true;
-    }
-    if (controls.includes(e.keyCode)) {
+    } else if (controls.includes(e.keyCode)) {
       if (e.repeat) {
         delete keys[e.keycode];
         return;
@@ -171,7 +192,6 @@ function main() {
         keys[e.keyCode] = true;
         click();
       }
-      refresh(sqnce);
     }
   });
   window.addEventListener("keyup", function (e) {
@@ -196,12 +216,7 @@ function main() {
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
+    update();
   }, 1000 / 60);
-  setInterval(() => {
-    time = Math.round(aud.currentTime * 1000);
-    leng = Math.round(aud.duration * 1000);
-    document.getElementById("timer").innerText = time + " / " + leng;
-    document.getElementById("scroll").style.left = -time + "px";
-  },1);
 }
 main();
