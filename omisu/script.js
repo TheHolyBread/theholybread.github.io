@@ -82,7 +82,7 @@ document.getElementById('importBtn').onchange = function () {
     try {
       const fileReaded = rd.result;
       var jsonified = JSON.parse(fileReaded);
-      jsonified.sqnce = JSON.parse(jsonified.sqnce);
+      //jsonified.sqnce = JSON.parse(jsonified.sqnce);
       song.song = jsonified.audio;
       song.sqnce = jsonified.sqnce;
       console.log(song);

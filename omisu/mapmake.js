@@ -66,27 +66,32 @@ function click() {
       delete keys[controls[7]];
     }
     //console.log("difference from last inp", Math.abs(all[all.length - 1] - time) < 100);
-    if (Math.abs(all[all.length - 1] - time()) < 50 && audio.paused) {
+    if (Math.abs(all[all.length - 1] - time()) < 100 && !(audio.paused)) {
       let rtime = all[all.length - 1];
-      for (let n in [...new Set(sqnce[rtime].concat(temp))]) {
-        addNew(rtime, n);
+      for (let n = 0; n < temp.length; n++) {
+        if (!(sqnce[rtime].includes(temp[n]))) {
+          addNew(rtime, temp[n]);
+        }
       }
       sqnce[rtime] = [...new Set(sqnce[rtime].concat(temp))];
     } else {
       if (sqnce[time()]) {
-        for (let n in [...new Set(sqnce[time()].concat(temp))]) {
-          addNew(rtime, n);
+        for (let n = 0; n < [...new Set(sqnce[time()].concat(temp))].length; n++) {
+          if (!(sqnce[time()].includes(temp[n]))) {
+            addNew(time(), temp[n]);
+          }
         }
         sqnce[time()] = [...new Set(sqnce[time()].concat(temp))];
       } else {
-        for (let n in [...new Set(sqnce[time()].concat(temp))]) {
-          addNew(time(), n);
+        for (let n = 0; n < temp.length; n++) {
+          addNew(time(), temp[n]);
         }
-        sqnce[time()] = [...new Set(sqnce[time()].concat(temp))];
+        sqnce[time()] = temp;
       }
     }
     //console.log(sqnce);
   }
+  level.sqnce = sqnce;
 }
 function del(dot) {
   delete seq[dot.time][dot.x];
@@ -94,13 +99,13 @@ function del(dot) {
 function addNew(tim, x) {
   let dot = document.createElement("div");
   dot.classList.add("dot");
-  dot.style.left = key[tim] + "px";
-  dot.style.top = CSS.percent(step[x] * 20);
+  dot.style.left = tim + "px";
+  dot.style.top = CSS.percent(x * 20);
   dot.style.background = ["#EF476F", "#FFD166", "#06D6A0", "#118AB2"][
-    step[x] - 1
+    x - 1
   ];
-  dot.setAttribute("time", key[tim]);
-  dot.setAttribute("x", step[x]);
+  dot.setAttribute("time", tim);
+  dot.setAttribute("x", x);
   dot.addEventListener("click", (e) => {
     sqnce[e.target.getAttribute("time")].splice(
       sqnce[e.target.getAttribute("time")].indexOf(
@@ -108,7 +113,7 @@ function addNew(tim, x) {
       ),
       1
     );
-    this.remove();
+    dot.remove();
   });
   document.getElementById("scroll").append(dot);
 }
@@ -118,10 +123,9 @@ function refresh(seq) {
   for (let i = 0; i < key.length; i++) {
     let step = seq[key[i]];
     for (let k = 0; k < step.length; k++) {
-      
+      addNew(key[i], step[k]);
     }
   }
-  document.getElementById("sqnce").innerText = JSON.stringify(sqnce, 1);
   level.sqnce = JSON.stringify(sqnce);
 }
 function exportMap() {
@@ -137,13 +141,28 @@ function exportMap() {
 document.getElementById('importBtn').onchange = function () {
   const file = this.files[0];
   rd.addEventListener("loadend", () => {
-    //document.getElementById("sqnce").innerText = rd.result;
     document.getElementById("audsource").src = rd.result;
     aud.load();
+    aud.addEventListener("load", () => {  leng = Math.round(aud.duration * 1000);  });
     leng = Math.round(aud.duration * 1000);
     level.audio = rd.result;
   });
   rd.readAsDataURL(file);
+}
+document.getElementById('importLvl').onchange = function () {
+  const file = this.files[0];
+  rd.addEventListener("loadend", () => {
+    let res = JSON.parse(rd.result);
+    //res.sqnce = JSON.parse(res.sqnce);
+    document.getElementById("audsource").src = res.audio;
+    aud.load();
+    aud.addEventListener("load", () => {  leng = Math.round(aud.duration * 1000);  });
+    level.audio = res.audio;
+    level.sqnce = res.sqnce;
+    sqnce = res.sqnce;
+    refresh(sqnce);
+  });
+  rd.readAsText(file);
 }
 
 function update() {
@@ -168,7 +187,6 @@ function main() {
     if (mousedown) {
       e.preventDefault();
       let change = mousex - e.clientX;
-      console.log(mousex, e.clientX, change);
       aud.currentTime += change / 1000;
     }
     mousex = e.clientX;
@@ -198,7 +216,7 @@ function main() {
     delete keys[e.keyCode];
   });
 
-  var audio = new Audio("resources/songs/swung.mp3");
+  var audio = new Audio("");
   audio.volume = 0.1;
   //audio.play();
 
