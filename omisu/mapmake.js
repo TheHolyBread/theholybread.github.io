@@ -12,7 +12,7 @@ var sqnce = {};
 const controls = [65, 83, 68, 70, 72, 74, 75, 76];
 var start = 0;
 const aud = document.getElementById("audio");
-aud.volume = 0.1;
+aud.volume = 1;
 var leng = Math.round(aud.duration * 1000);
 function time() {
   return Math.round(aud.currentTime * 1000);
@@ -143,8 +143,7 @@ document.getElementById('importBtn').onchange = function () {
   rd.addEventListener("loadend", () => {
     document.getElementById("audsource").src = rd.result;
     aud.load();
-    aud.addEventListener("load", () => {  leng = Math.round(aud.duration * 1000);  });
-    leng = Math.round(aud.duration * 1000);
+    aud.onchange = () => {  leng = Math.round(aud.duration * 1000);  };
     level.audio = rd.result;
   });
   rd.readAsDataURL(file);
@@ -231,7 +230,7 @@ function main() {
         ? (aud.currentTime += 0.001)
         : (aud.currentTime += 0.01);
     }
-    if (document.activeElement instanceof HTMLElement) {
+    if (document.activeElement instanceof HTMLElement && document.activeElement.getAttribute("blurable") != 69) {
       document.activeElement.blur();
     }
     update();
