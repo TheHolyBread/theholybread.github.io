@@ -365,6 +365,18 @@ body {
   width: 100vw;
   height: 50vh;
 }
+#filename {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 2rem;
+  field-sizing: content;
+  font-family: Verdana;
+}
+div:has(> #filename) {
+  font-size: 2rem;
+  font-family: Verdana;
+}
 .vert {
   display: flex;
   position: absolute;

@@ -326,6 +326,19 @@ body {
   height: 50vh;
 }
 
+#filename {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 2rem;
+  field-sizing: content;
+}
+
+div:has(> #filename) {
+  font-size: 2rem;
+  font-family: Verdana;
+}
+
 .vert {
   display: flex;
   position: absolute;

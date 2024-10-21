@@ -155,7 +155,6 @@ document.getElementById('importLvl').onchange = function () {
     //res.sqnce = JSON.parse(res.sqnce);
     document.getElementById("audsource").src = res.audio;
     aud.load();
-    aud.addEventListener("load", () => {  leng = Math.round(aud.duration * 1000);  });
     level.audio = res.audio;
     level.sqnce = res.sqnce;
     sqnce = res.sqnce;
@@ -165,6 +164,7 @@ document.getElementById('importLvl').onchange = function () {
 }
 
 function update() {
+  leng = Math.round(aud.duration * 1000);
   document.getElementById("timer").innerText = time() + " / " + leng;
   document.getElementById("scroll").style.left = -time() + "px";
 }
@@ -191,6 +191,7 @@ function main() {
     mousex = e.clientX;
   });
   window.addEventListener("keydown", function (e) {
+    if (document.activeElement.getAttribute("blurable") == 69) return;
     if (e.keyCode == 32) {
       if (e.repeat) return;
       e.preventDefault();
