@@ -133,7 +133,11 @@ function exportMap() {
   const link = document.createElement("a");
   let file = new Blob([blob],{type: 'text/plain'});
   link.href = URL.createObjectURL(file);
-  link.download = "MyLevel" + ".misumap"
+  if (document.getElementById("filename").value.length != 0) {
+    link.download = document.getElementById("filename").value + ".misumap";
+  } else {
+    link.download = "myLevel" + ".misumap"
+  }
   link.click();
   URL.revokeObjectURL(link.href);
   link.remove();
@@ -143,7 +147,6 @@ document.getElementById('importBtn').onchange = function () {
   rd.addEventListener("loadend", () => {
     document.getElementById("audsource").src = rd.result;
     aud.load();
-    aud.onchange = () => {  leng = Math.round(aud.duration * 1000);  };
     level.audio = rd.result;
   });
   rd.readAsDataURL(file);

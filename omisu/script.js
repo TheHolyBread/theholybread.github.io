@@ -277,7 +277,7 @@ class Note {
     this.x = x;
     this.offset = offset;
 
-    this.y = 0 - this.offset;
+    this.y = 0;
     this.n = 0 - this.offset;
     this.note.style.left = this.x * 25 + "%";
 
@@ -285,29 +285,37 @@ class Note {
     this.note.id = "note" + this.id;
     n++;
     this.height = 15;
-    this.note.classList.add(["one", "two", "tre", "for"][this.x]);
     this.mini = mini;
-    if (this.mini) {
-      this.note.classList.add("mini");
-      this.x += 4;
-    }
-    this.start = Date.now() + 200;
+    this.classed = false;
+    this.start = Date.now() + 200 + this.offset;
 
     this.passed = false;
 
-    setTimeout(() => {
-      if (mini) {
-        [c1, c2, c3, c4][this.x - 4].main();
-      } else {
-        [c1, c2, c3, c4][this.x].main();
-      }
-    }, 150);
     document.getElementById("plane").prepend(this.note);
   }
+  addClasses() {
+    if (!this.classed) {
+      this.classed = true;
+      this.note.classList.add(["one", "two", "tre", "for"][this.x]);
+      if (this.mini) {
+        this.note.classList.add("mini");
+        this.x += 4;
+      }
+      setTimeout(() => {
+        if (this.mini) {
+          [c1, c2, c3, c4][this.x - 4].main();
+        } else {
+          [c1, c2, c3, c4][this.x].main();
+        }
+      }, 150);
+    }
+  }
   moveNote() {
-    this.y = (Date.now() - this.start) / (15 - (speed - 15));
-    this.n++;
-    this.note.style.top = this.y + "%";
+    if (Date.now() > this.start - this.offset) {
+      this.addClasses();
+      this.y = ((Date.now() - this.start - (2 * this.offset)) / (15 - (speed - 15)));
+      this.note.style.top = Math.max(this.y, 0) + "%";
+    }
   }
   main() {
     setTimeout(() => {
@@ -413,13 +421,16 @@ var c3 = new Blink(document.getElementById("c3"));
 var c4 = new Blink(document.getElementById("c4"));
 
 function noteLoop(current, seq) {
+  console.log(current);
   let key = Object.keys(seq);
   for (let i = 0; i < key.length; i++) {
     let step = seq[key[i]];
     for (let k = 0; k < step.length; k++) {
       let offset = 0;
-      let timef = key[i] - 67.5 * ((1000 / 60) * (15 / speed)) - 200 + 1500;
+      let timef = key[i] - (67.5) - 200 + 1500;
       setTimeout(() => {
+        console.log(Date.now());
+        console.log(key[i]);
         offset = Date.now() - (current + timef);
         let newnote;
         if (step[k] > 4) {
@@ -437,7 +448,7 @@ function noteLoop(current, seq) {
           );
         }
         newnote.main();
-      }, timef);
+      }, timef - 500);
     }
   }
 }

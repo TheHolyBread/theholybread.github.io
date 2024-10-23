@@ -44,6 +44,9 @@ body {
   //animation: spin 30s infinite ease-in-out;
   //animation: bop .7s infinite ease-in-out;
 }
+.planecon > div:not(.plane) {
+  pointer-events: none;
+}
 .plane {
   display: block;
   position: absolute;
@@ -302,10 +305,12 @@ body {
   width: 100%;
   height: 100%;
   display: flex;
-  opacity: 0;
+  opacity: 1;
+  //transform: translateZ(119px);
 }
 #mobilecon div {
-  outline: 2px solid rgba($white, 0.25);
+  //outline: 2px solid rgba($white, 0.25);
+  outline: none;
   width: 25%;
   height: 100%;
   left: 0;
@@ -321,9 +326,9 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
-#mobilecon div:active {
-  background: rgba($white, 0.25);
-}
+// #mobilecon div:active {
+//   background: rgba($white, 0.25);
+// }
 #barcon {
   width: 100%;
   height: 100%;
