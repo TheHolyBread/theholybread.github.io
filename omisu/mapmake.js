@@ -1,7 +1,9 @@
 const rd = new FileReader();
 
 var level = {
+  "title" : "",
   "audio" : "",
+  "cover" : "",
   "sqnce" : {}
 };
 
@@ -151,6 +153,14 @@ document.getElementById('importBtn').onchange = function () {
   });
   rd.readAsDataURL(file);
 }
+document.getElementById('importImg').onchange = function () {
+  const file = this.files[0];
+  rd.addEventListener("loadend", () => {
+    document.getElementById("lvlCover").src = rd.result;
+    level.cover = rd.result;
+  });
+  rd.readAsDataURL(file);
+}
 document.getElementById('importLvl').onchange = function () {
   const file = this.files[0];
   rd.addEventListener("loadend", () => {
@@ -160,6 +170,9 @@ document.getElementById('importLvl').onchange = function () {
     aud.load();
     level.audio = res.audio;
     level.sqnce = res.sqnce;
+    // level.title = res.title;
+    // document.getElementById("filename").value = level.title;
+    // level.cover = res.cover;
     sqnce = res.sqnce;
     refresh(sqnce);
   });

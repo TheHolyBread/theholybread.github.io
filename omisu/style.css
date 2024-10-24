@@ -52,7 +52,8 @@ body {
   backface-visibility: visible;
   transform: rotateX(70deg);
   overflow: clip;
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
 }
 
 .line {
@@ -193,23 +194,23 @@ body {
   font-family: "Rubik Mono One";
   position: absolute;
   color: #fffdef;
-  font-size: calc(4px * 16);
+  font-size: 64px;
   text-wrap: nowrap;
 }
 
 #score {
   transform: translate(-50%, calc(-50% - 96px - 225px)) rotateX(20deg) translateZ(-325px);
-  font-size: calc(16px * 16);
+  font-size: 256px;
 }
 
 #grade {
-  transform: translateX(calc(-50% - (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(20deg) rotateZ(-20deg);
-  font-size: calc(14px * 16);
+  transform: translateX(calc(-50% - 600px)) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(20deg) rotateZ(-20deg);
+  font-size: 224px;
 }
 
 #combo {
-  transform: translateX(calc(-50% + (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(-20deg) rotateZ(20deg);
-  font-size: calc(14px * 16);
+  transform: translateX(calc(-50% + 600px)) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(-20deg) rotateZ(20deg);
+  font-size: 224px;
 }
 
 .pop {
@@ -275,9 +276,7 @@ body {
   touch-action: manipulation;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -302,6 +301,8 @@ body {
 
 #nav {
   padding: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   display: flex;
   flex-direction: row;
   gap: 15px 15px;
@@ -316,6 +317,7 @@ body {
   bottom: 0;
   width: 100%;
   height: 50vh;
+  overflow: clip;
 }
 
 #scroll {
@@ -336,9 +338,55 @@ body {
   font-family: Verdana;
 }
 
+#songData {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+
+#lvlCoverHover {
+  width: 150px;
+  height: 150px;
+}
+
+#lvlCover {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+#lvlCoverHover > #coverHover {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  left: 0;
+  top: calc(-100% - 5px);
+  border: none;
+  outline: none;
+  background: #131313;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+#lvlCoverHover > #coverHover:hover {
+  opacity: 0.2;
+}
+
+#coverHover input {
+  width: 100%;
+  height: 100%;
+  background: #131313;
+  border: none;
+  outline: none;
+  font-size: 5rem;
+}
+
 div:has(> #filename) {
   font-size: 2rem;
   font-family: Verdana;
+  align-self: flex-end;
+  margin: 10px;
 }
 
 .vert {
@@ -386,7 +434,7 @@ button {
   margin-left: 0;
   cursor: no-drop;
   box-shadow: 0 0 0 0 #06d6a0;
-  transition: transform .1s, color .1s, background 0.1s, box-shadow 0.1s;
+  transition: transform 0.1s, color 0.1s, background 0.1s, box-shadow 0.1s;
 }
 
 button:not(:disabled) {
@@ -415,7 +463,6 @@ object {
     transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
   }
 }
-
 @keyframes note {
   from {
     opacity: 0;
@@ -425,7 +472,6 @@ object {
     opacity: 1;
   }
 }
-
 @keyframes flash {
   from {
     opacity: 1;
@@ -434,7 +480,6 @@ object {
     opacity: 0.5;
   }
 }
-
 @keyframes hit {
   0% {
     opacity: 1;
@@ -445,7 +490,6 @@ object {
     opacity: 0;
   }
 }
-
 @keyframes bop {
   0% {
     perspective: 300px;
@@ -459,4 +503,4 @@ object {
   100% {
     perspective: 300px;
   }
-}
+}/*# sourceMappingURL=style.css.map */

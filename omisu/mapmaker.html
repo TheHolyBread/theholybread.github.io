@@ -10,8 +10,19 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div><input id="filename" name="filename" type="text" value="funnyfile" blurable=69><label for="filename">.misumap</label></div>
-    <div id="timer"></div>
+    <div id="songData">
+      <div id="lvlCoverHover">
+        <img id="lvlCover" src="resources/images/omisu default cover.jpg">
+        <div id="coverHover">
+          <input type="button" value="+" onclick="document.getElementById('importImg').click()">
+        </div>
+      </div>
+      <div>
+        <input id="filename" name="filename" type="text" value="myLevel" blurable=69>
+        <label for="filename">.misumap</label>
+        <div id="timer"></div>
+      </div>
+    </div>
     <audio controls id="audio">
       <source id="audsource" type="audio/mpeg" />
     </audio>
@@ -24,6 +35,7 @@
         <a id="return" style="display: none;" href="./"></a>
         <input id="importBtn" type="file" style="display: none;" accept="audio/mp3"/>
         <input id="importLvl" type="file" style="display: none;" accept=".misumap"/>
+        <input id="importImg" type="file" style="display: none;" accept="image/jpeg"/>
       </div>
 
       <div id="field">
