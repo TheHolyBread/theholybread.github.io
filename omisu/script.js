@@ -14,7 +14,7 @@ var song = {
   song: "",
   sqnce: {},
 };
-var speed = 15;
+var speed = 1.5;
 var audio = new Audio(song.song);
 audio.volume = 1;
 
@@ -283,19 +283,22 @@ class Note {
 
     this.id = n;
     this.note.id = "note" + this.id;
+    this.note.classList.remove("note");
     n++;
     this.height = 15;
     this.mini = mini;
     this.classed = false;
-    this.start = Date.now() + 200 + this.offset;
+    this.start = Date.now() + 200;
 
     this.passed = false;
-
+    this.note.style.opacity = 0;
     document.getElementById("plane").prepend(this.note);
   }
   addClasses() {
     if (!this.classed) {
       this.classed = true;
+      this.note.style.opacity = 1;
+      this.note.classList.add("note");
       this.note.classList.add(["one", "two", "tre", "for"][this.x]);
       if (this.mini) {
         this.note.classList.add("mini");
@@ -311,9 +314,9 @@ class Note {
     }
   }
   moveNote() {
-    if (Date.now() > this.start - this.offset) {
+    if ((Date.now() + 200 - this.start + this.offset) / 15 * speed > 0) {
       this.addClasses();
-      this.y = ((Date.now() - this.start - (2 * this.offset)) / (15 - (speed - 15)));
+      this.y = (Date.now() - this.start + this.offset) / 15 * speed;
       this.note.style.top = Math.max(this.y, 0) + "%";
     }
   }
@@ -427,7 +430,7 @@ function noteLoop(current, seq) {
     let step = seq[key[i]];
     for (let k = 0; k < step.length; k++) {
       let offset = 0;
-      let timef = key[i] - (67.5) - 200 + 1500;
+      let timef = key[i] - (67.5 * 15 / speed) - 200 + 1500;
       setTimeout(() => {
         console.log(Date.now());
         console.log(key[i]);
