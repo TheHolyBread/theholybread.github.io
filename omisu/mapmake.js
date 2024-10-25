@@ -3,7 +3,7 @@ const rd = new FileReader();
 var level = {
   "title" : "",
   "audio" : "",
-  "cover" : "",
+  "cover" : "resources/images/omisu default cover.jpg",
   "sqnce" : {}
 };
 
@@ -131,15 +131,18 @@ function refresh(seq) {
   level.sqnce = JSON.stringify(sqnce);
 }
 function exportMap() {
-  let blob = JSON.stringify(level);
   const link = document.createElement("a");
+  if (document.getElementById("filename").value.length != 0) {
+    level.title = document.getElementById("filename").value;
+    link.download = level.title + ".misumap";
+  } else {
+    level.title = "myLevel";
+    link.download = level.title + ".misumap"
+  }
+  let blob = JSON.stringify(level);
   let file = new Blob([blob],{type: 'text/plain'});
   link.href = URL.createObjectURL(file);
-  if (document.getElementById("filename").value.length != 0) {
-    link.download = document.getElementById("filename").value + ".misumap";
-  } else {
-    link.download = "myLevel" + ".misumap"
-  }
+  
   link.click();
   URL.revokeObjectURL(link.href);
   link.remove();
@@ -168,12 +171,15 @@ document.getElementById('importLvl').onchange = function () {
     //res.sqnce = JSON.parse(res.sqnce);
     document.getElementById("audsource").src = res.audio;
     aud.load();
+    res.sqnce = JSON.parse(res.sqnce);
     level.audio = res.audio;
     level.sqnce = res.sqnce;
-    // level.title = res.title;
-    // document.getElementById("filename").value = level.title;
-    // level.cover = res.cover;
+    level.title = res.title;
+    document.getElementById("filename").value = level.title;
+    level.cover = res.cover;
+    document.getElementById("lvlCover").src = level.cover;
     sqnce = res.sqnce;
+    console.log(res);
     refresh(sqnce);
   });
   rd.readAsText(file);

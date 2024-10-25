@@ -11,12 +11,16 @@ var time = 0;
 var start = 0;
 
 var song = {
-  song: "",
-  sqnce: {},
+  title : "",
+  song  : "",
+  cover : "",
+  sqnce : {},
 };
-var speed = 1.5;
+var speed = 2;
 var audio = new Audio(song.song);
 audio.volume = 1;
+
+var startDelay = 1500;
 
 let audioCtx;
 let smoothvol = 0;
@@ -82,9 +86,11 @@ document.getElementById('importBtn').onchange = function () {
     try {
       const fileReaded = rd.result;
       var jsonified = JSON.parse(fileReaded);
-      //jsonified.sqnce = JSON.parse(jsonified.sqnce);
       song.song = jsonified.audio;
+      jsonified.sqnce = JSON.parse(jsonified.sqnce);
       song.sqnce = jsonified.sqnce;
+      song.title = jsonified.title;
+      song.cover = jsonified.cover;
       console.log(song);
       document.getElementById("start").disabled = false;
     } catch(error) {
