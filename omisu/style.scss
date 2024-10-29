@@ -386,6 +386,20 @@ body {
   flex-direction: row;
   margin: 10px;
 }
+#levelData {
+  bottom: 10px;
+  left: 10px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+#lvlTitle {
+  color: white;
+  align-self: flex-end;
+  font-family: 'Rubik Mono One';
+  font-size: 3rem;
+}
 #lvlCoverHover {
   width: 150px;
   height: 150px;

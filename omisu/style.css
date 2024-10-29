@@ -52,8 +52,7 @@ body {
   backface-visibility: visible;
   transform: rotateX(70deg);
   overflow: clip;
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .line {
@@ -194,23 +193,23 @@ body {
   font-family: "Rubik Mono One";
   position: absolute;
   color: #fffdef;
-  font-size: 64px;
+  font-size: calc(4px * 16);
   text-wrap: nowrap;
 }
 
 #score {
   transform: translate(-50%, calc(-50% - 96px - 225px)) rotateX(20deg) translateZ(-325px);
-  font-size: 256px;
+  font-size: calc(16px * 16);
 }
 
 #grade {
-  transform: translateX(calc(-50% - 600px)) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(20deg) rotateZ(-20deg);
-  font-size: 224px;
+  transform: translateX(calc(-50% - (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(20deg) rotateZ(-20deg);
+  font-size: calc(14px * 16);
 }
 
 #combo {
-  transform: translateX(calc(-50% + 600px)) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(-20deg) rotateZ(20deg);
-  font-size: 224px;
+  transform: translateX(calc(-50% + (200px * 3))) translateY(calc(-50% + 30px - 100px)) rotateX(20deg) translateZ(-325px) rotateY(-20deg) rotateZ(20deg);
+  font-size: calc(14px * 16);
 }
 
 .pop {
@@ -276,7 +275,9 @@ body {
   touch-action: manipulation;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
+  -khtml-user-select: none;
   -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
@@ -342,6 +343,22 @@ body {
   display: flex;
   flex-direction: row;
   margin: 10px;
+}
+
+#levelData {
+  bottom: 10px;
+  left: 10px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+#lvlTitle {
+  color: white;
+  align-self: flex-end;
+  font-family: 'Rubik Mono One';
+  font-size: 3rem;
 }
 
 #lvlCoverHover {
@@ -434,7 +451,7 @@ button {
   margin-left: 0;
   cursor: no-drop;
   box-shadow: 0 0 0 0 #06d6a0;
-  transition: transform 0.1s, color 0.1s, background 0.1s, box-shadow 0.1s;
+  transition: transform .1s, color .1s, background 0.1s, box-shadow 0.1s;
 }
 
 button:not(:disabled) {
@@ -463,6 +480,7 @@ object {
     transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
   }
 }
+
 @keyframes note {
   from {
     opacity: 0;
@@ -472,6 +490,7 @@ object {
     opacity: 1;
   }
 }
+
 @keyframes flash {
   from {
     opacity: 1;
@@ -480,6 +499,7 @@ object {
     opacity: 0.5;
   }
 }
+
 @keyframes hit {
   0% {
     opacity: 1;
@@ -490,6 +510,7 @@ object {
     opacity: 0;
   }
 }
+
 @keyframes bop {
   0% {
     perspective: 300px;
@@ -503,4 +524,4 @@ object {
   100% {
     perspective: 300px;
   }
-}/*# sourceMappingURL=style.css.map */
+}

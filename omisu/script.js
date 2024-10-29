@@ -92,6 +92,8 @@ document.getElementById('importBtn').onchange = function () {
       song.title = jsonified.title;
       song.cover = jsonified.cover;
       console.log(song);
+      document.getElementById("lvlCoverHover").src = song.cover;
+      document.getElementById("lvlTitle").innerText = song.title;
       document.getElementById("start").disabled = false;
     } catch(error) {
       document.getElementById("start").innerText = error;
