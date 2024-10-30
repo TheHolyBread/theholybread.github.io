@@ -14,7 +14,7 @@ var song = {
   title : "",
   song  : "",
   cover : "",
-  sqnce : {},
+  sqnce : {}
 };
 var speed = 2;
 var audio = new Audio(song.song);
@@ -438,7 +438,7 @@ function noteLoop(current, seq) {
     let step = seq[key[i]];
     for (let k = 0; k < step.length; k++) {
       let offset = 0;
-      let timef = key[i] - (67.5 * 15 / speed) - 200 + 1500;
+      let timef = key[i] - (67.5 * 15 / speed) - 200 + startDelay;
       setTimeout(() => {
         console.log(Date.now());
         console.log(key[i]);
@@ -483,7 +483,35 @@ function main() {
 
   setTimeout(() => {
     audio.play();
-  }, 1500);
+  }, startDelay);
+
+  document.getElementById("lvlCoverHover").animate(
+    [
+      {
+        position: "absolute",
+        left: CSS.percent(50),
+        bottom: CSS.percent(50),
+        transform: "translate(-50%, 50%)",
+        opacity: 0
+      },
+      {
+        position: "absolute",
+        left: CSS.percent(50),
+        bottom: CSS.percent(50),
+        transform: "translate(-50%, 50%)",
+        opacity: 0.75
+      },
+      {
+        left: CSS.px(10),
+        bottom: CSS.px(10),
+        transform: "translate(0, 0)",
+        position: "absolute",
+        opacity: 1
+      }
+    ],
+    { duration: 1500, fill: "both" }
+  );
+  
   start = Date.now();
   setInterval(() => {
     document.getElementById("score").innerHTML =
