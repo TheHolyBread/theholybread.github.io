@@ -20,7 +20,7 @@ var speed = 2;
 var audio = new Audio(song.song);
 audio.volume = 1;
 
-var startDelay = 1500;
+var startDelay = 3000;
 
 let audioCtx;
 let smoothvol = 0;
@@ -491,26 +491,32 @@ function main() {
         position: "absolute",
         left: CSS.percent(50),
         bottom: CSS.percent(50),
-        transform: "translate(-50%, 50%)",
-        opacity: 0
-      },
-      {
-        position: "absolute",
-        left: CSS.percent(50),
-        bottom: CSS.percent(50),
-        transform: "translate(-50%, 50%)",
-        opacity: 0.75
+        transform: "translate(-50%, 50%) scale(3)"
       },
       {
         left: CSS.px(10),
         bottom: CSS.px(10),
-        transform: "translate(0, 0)",
-        position: "absolute",
+        transform: "translate(0, 0) scale(1)",
+        position: "absolute"
+      }
+    ],
+    { duration: 1500, fill: "both", easing: "ease-in-out", delay: 1000 }
+  );
+  document.getElementById("lvlCoverHover").animate(
+    [
+      {
+        opacity: 0
+      },
+      {
+        opacity: 0.75
+      },
+      {
         opacity: 1
       }
     ],
     { duration: 1500, fill: "both" }
   );
+  
   
   start = Date.now();
   setInterval(() => {
