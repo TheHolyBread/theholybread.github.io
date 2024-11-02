@@ -48,7 +48,7 @@ audio.addEventListener("play", () => {
 
     source.connect(analyser);
     analyser.connect(audioCtx.destination);
-
+ 
     function calculateVolume() {
       analyser.getByteFrequencyData(dataArray);
 
@@ -87,7 +87,7 @@ document.getElementById('importBtn').onchange = function () {
       const fileReaded = rd.result;
       var jsonified = JSON.parse(fileReaded);
       song.song = jsonified.audio;
-      jsonified.sqnce = JSON.parse(jsonified.sqnce);
+      try {  jsonified.sqnce = JSON.parse(jsonified.sqnce)  } catch (e) {    }
       song.sqnce = jsonified.sqnce;
       song.title = jsonified.title;
       song.cover = jsonified.cover;
@@ -515,6 +515,53 @@ function main() {
       }
     ],
     { duration: 1500, fill: "both" }
+  );
+  document.getElementById("lvlCoverHover").animate(
+    [
+      {
+        opacity: 0
+      },
+      {
+        opacity: 0.75
+      },
+      {
+        opacity: 1
+      }
+    ],
+    { duration: 1500, fill: "both" }
+  );
+  document.getElementById("levelData").animate(
+    [
+      {
+        opacity: 0
+      },
+      {
+        opacity: 1
+      }
+    ],
+    { duration: 1000, delay: 2000, fill: "both"}
+  );
+  document.getElementById("lvlCoverHover").animate(
+    [
+      {
+        opacity: 1
+      },
+      {
+        opacity: 0
+      }
+    ],
+    { duration: 1000, delay: 4500, fill: "forwards"}
+  );
+  document.getElementById("levelData").animate(
+    [
+      {
+        opacity: 1
+      },
+      {
+        opacity: 0
+      }
+    ],
+    { duration: 1000, delay: 4500, fill: "forwards"}
   );
   
   

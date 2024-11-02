@@ -171,7 +171,7 @@ document.getElementById('importLvl').onchange = function () {
     //res.sqnce = JSON.parse(res.sqnce);
     document.getElementById("audsource").src = res.audio;
     aud.load();
-    res.sqnce = JSON.parse(res.sqnce);
+    try {  res.sqnce = JSON.parse(res.sqnce)  } catch (e) {    }
     level.audio = res.audio;
     level.sqnce = res.sqnce;
     level.title = res.title;
